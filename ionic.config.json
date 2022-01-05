@@ -1,0 +1,7 @@
+{
+  "name": "sets-and-reps-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
