@@ -31,10 +31,10 @@
                         <ion-col>
                             <div class="container">
                                 <ion-item>
-                                    <ion-input placeholder="Email"></ion-input>
+                                    <ion-input placeholder="Email" v-model="email"></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-input placeholder="Password"></ion-input>
+                                    <ion-input placeholder="Password" v-model="password"></ion-input>
                                 </ion-item>
                             </div>
                         </ion-col>
@@ -71,19 +71,19 @@ export default {
     },
     methods: {
         login() {
-            // const payload = {
-            //     email: this.email,
-            //     password: this.password
-            // }
-            // this.$store.dispatch('login/login', payload)
-            // .then(() => {
-            //     this.navigation.navigate('IOSBottomTabs')
-            // })
-            // .catch(error => {
-            //     this.errorMessage = error.response.data.errors.email[0];
-            //     // console.log(error.response.data.errors.email[0])
-            //     // console.log(this.errorMessage);
-            // })
+            const payload = {
+                email: this.email,
+                password: this.password
+            }
+            this.$store.dispatch('login/login', payload)
+            .then(() => {
+                // this.navigation.navigate('IOSBottomTabs')
+            })
+            .catch(error => {
+                this.errorMessage = error.response.data.errors.email[0];
+                // console.log(error.response.data.errors.email[0])
+                // console.log(this.errorMessage);
+            })
 
         },
     }
