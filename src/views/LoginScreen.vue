@@ -16,9 +16,9 @@
             <text class="button" @press="login()">Login</text>
         </KeyboardAvoidingView> -->
         <ion-content>
-            <ion-grid>
-                <ion-row class="ion-justify-content-center" style="height: 100%">
-                    <ion-row class="ion-align-items-center">
+            <ion-grid >
+                <!-- <ion-row class="ion-justify-content-center" style="height: 100%"> -->
+                    <ion-row class="ion-align-items-center" style="padding-top: 25%;">
                         <ion-col>
                             <div class="ion-text-center ion-align-self-end">
                                 <h1 class="title">Sets</h1>
@@ -27,8 +27,15 @@
                             </div>
                         </ion-col>
                     </ion-row>
-                    <ion-row>
+                    <ion-row class="ion-justify-content-center">
                         <ion-col>
+                            <div>
+                                <ion-toast
+                                    :is-open="isOpenRef"
+                                    :message="errorMessage"
+                                    :duration="2000"                   
+                                ></ion-toast>
+                            </div>
                             <div class="container">
                                 <ion-item>
                                     <ion-input placeholder="Email" v-model="email"></ion-input>
@@ -39,29 +46,44 @@
                             </div>
                         </ion-col>
                     </ion-row>
-                </ion-row>
+                    <ion-row class="ion-justify-content-center">
+                        <ion-col size="3">
+                            <div>
+                                <ion-button @click="login()">
+                                    Login
+                                </ion-button>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                <!-- </ion-row> -->
                 
             </ion-grid>
-
-
-
         </ion-content>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { IonGrid, IonRow, IonCol, IonItem, IonToast } from '@ionic/vue'
+import { mapState } from 'vuex'
 
 export default {
+    components: {
+        IonGrid,
+        IonRow,
+        IonCol,
+        IonItem,
+        IonToast,
+    },
     computed: {
-        // ...mapState('login', {
-        //     errorMessage: state => state.messages
-        // })
+        ...mapState('login', {
+            errorMessage: state => state.messages
+        })
     },
     data() {
         return {
             email: 'tr@example.com',
             password: 'password122',
             trainerId: null,
+            isOpenRef: false,
         }
     },
     props: {
@@ -81,18 +103,24 @@ export default {
             })
             .catch(error => {
                 this.errorMessage = error.response.data.errors.email[0];
+                this.isOpenRef = true;
+                setTimeout(() => {
+                    this.isOpenRef = false;
+                }, 2000);
                 // console.log(error.response.data.errors.email[0])
                 // console.log(this.errorMessage);
             })
-
         },
+        yo() {
+            alert('testing');
+        }
     }
 }
 </script>
 
 <style scoped>
     ion-grid {
-        height: 100%;
+        height: 100%; 
     }
 
     ::placeholder {
@@ -115,17 +143,6 @@ export default {
         margin: 0;
     }
 
-    .button {
-        text-align: center;
-        font-size: 25;
-        width: 55%;
-        margin-bottom: 5;
-        border-color: #FCFCFC;
-        border-width: 1;
-        border-radius: 5;
-        color: #FCFCFC;
-    }
-
     .login-field {
         height: 5%;
         width: 55%;
@@ -139,11 +156,5 @@ export default {
 
     .text-color-primary {
         color: white;
-    }
-
-    .error-message {
-        /* background-color: red; */
-        padding: 10;
-        margin-bottom: 10;
     }
 </style>

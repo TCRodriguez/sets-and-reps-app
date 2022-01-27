@@ -16,10 +16,11 @@ export default {
                 })
                 .then(response => {
                     context.commit('UPDATE_TOKEN', `Bearer ${response.data.data.token}`)
+                    console.log('success')
                     resolve(response.data.data.token)
                 })
                 .catch(error => {
-                    console.log(error.response)
+                    // console.log(error.response)
 
                     const errorMessage = error.response.data.errors.email[0]
                     // console.log(error.response.data.errors.email[0])
@@ -36,11 +37,12 @@ export default {
         },
         UPDATE_MESSAGES(state, messages) {
             state.messages = messages
+            console.log(state.messages)
             // ? Does something like a setTimeout() function go here? 
             // ? Since the computed property will be changed?
-            setTimeout(() => {
-                state.messages = null
-            }, 4000);
+            // setTimeout(() => {
+            //     state.messages = null
+            // }, 4000);
         }
     },
 }
