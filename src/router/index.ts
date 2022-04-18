@@ -1,7 +1,9 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
+import { createRouter, createWebHistory, createMemoryHistory, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue';
 import LoginScreen from '../views/LoginScreen.vue'
+import ClientList from '../views/ClientList.vue';
+import MainTabs from '../views/MainTabs.vue';
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -13,16 +15,31 @@ const routes: Array<RouteRecordRaw> = [
     component: LoginScreen,
   },
   {
+    path: '/clients',
+    component: ClientList,
+  },
+  {
     path: '/tabs/',
-    component: TabsPage,
+    component: MainTabs,
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        // redirect: '/tabs/tab1'
+        redirect: '/tabs/clients',
+      },
+      // {
+      //   path: 'tab1',
+      //   component: () => import('@/views/Tab1Page.vue')
+      // },
+      {
+        path: 'clients',
+        component: () => import('@/views/ClientList.vue'),
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1Page.vue')
+        path: 'clients/:clientId',
+        name: 'clientWorkout',
+        component: () => import('@/views/ClientWorkoutsList.vue'),
+        props: true,
       },
       {
         path: 'tab2',
@@ -41,4 +58,4 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default router;

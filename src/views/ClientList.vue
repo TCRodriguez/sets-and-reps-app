@@ -50,6 +50,7 @@ import { mapState } from 'vuex';
 
 
 export default {
+    // props: ['clientName'],
     components: { 
         IonPage,
         IonHeader,
@@ -80,7 +81,14 @@ export default {
             //     clientId: clientId,
             //     clientName: clientName
             // })
-            this.$router.push('')
+            this.$router.push({
+                // path: `clients/${clientId}`,
+                name: 'clientWorkout',
+                params: {
+                    clientId: clientId,
+                    clientName: clientName
+                }
+            })
         },
     }
 }

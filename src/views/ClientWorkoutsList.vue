@@ -2,7 +2,7 @@
     <ion-page>
         <ion-header>
             <ion-toolbar>
-                <ion-title>Clients</ion-title>
+                <ion-title>{{clientName}}</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -12,9 +12,9 @@
                         <!-- Do a v-for here? -->
                         <ion-list>
                             <ion-item 
-                                v-for="client in clients" 
-                                :key="client.id"
-                                button @click="goToClientWorkoutsListScreen(client.id, client.name)"
+                                v-for="clientWorkout in clientWorkouts" 
+                                :key="clientWorkout.id"
+                                button @click="goToClientWorkout(client.id, client.name)"
                             >
                                 {{ client.first_name }} {{ client.last_name }}
                             </ion-item>
@@ -47,6 +47,9 @@ import { mapState } from 'vuex';
 
 
 export default {
+    props: {
+        clientName: {type: String, required: true}
+    },
     components: { 
         IonPage,
         IonHeader,
@@ -58,13 +61,20 @@ export default {
         // IonCol,
         IonList
     },
+    data() {
+        return {
+            // clientName: null,
+        }
+    },
     computed: {
-        ...mapState('clients', {
-            clientWorkouts: state => state.list
+        ...mapState('clientWorkouts', {
+            clientWorkouts: state => state.workouts
         })
     },
     mounted() {
-        this.$store.dispatch('clients/updateClientList')
+        // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientName)
+        console.log(this.clientName)
+        // this.clientName = this.$route.params.clientName
     },
 }
 </script>

@@ -81,7 +81,7 @@ export default {
     data() {
         return {
             email: 'tr@example.com',
-            password: 'password122',
+            password: 'password123',
             trainerId: null,
             isOpenRef: false,
         }
@@ -99,10 +99,14 @@ export default {
             }
             this.$store.dispatch('login/login', payload)
             .then(() => {
-                // this.navigation.navigate('IOSBottomTabs')
+                // const ionRouter = useIonRouter();
+                this.$router.push('/tabs/', 'forward');
             })
             .catch(error => {
-                this.errorMessage = error.response.data.errors.email[0];
+                console.log(error)
+                if(error.response.data !== undefined){
+                    this.errorMessage = error.response.data.errors.email[0];
+                }
                 this.isOpenRef = true;
                 setTimeout(() => {
                     this.isOpenRef = false;
