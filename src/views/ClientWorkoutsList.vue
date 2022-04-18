@@ -16,7 +16,7 @@
                                 :key="clientWorkout.id"
                                 button @click="goToClientWorkout(client.id, client.name)"
                             >
-                                {{ client.first_name }} {{ client.last_name }}
+                                {{clientWorkout.date.substring(0, 10)}}
                             </ion-item>
                         </ion-list>
                     <!-- </ion-col> -->
@@ -48,7 +48,8 @@ import { mapState } from 'vuex';
 
 export default {
     props: {
-        clientName: {type: String, required: true}
+        clientName: {type: String, required: true},
+        clientId: {type: String, required: true}
     },
     components: { 
         IonPage,
@@ -72,7 +73,7 @@ export default {
         })
     },
     mounted() {
-        // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientName)
+        this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
         console.log(this.clientName)
         // this.clientName = this.$route.params.clientName
     },
