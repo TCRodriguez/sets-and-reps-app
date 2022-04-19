@@ -14,7 +14,7 @@
                             <ion-item 
                                 v-for="clientWorkout in clientWorkouts" 
                                 :key="clientWorkout.id"
-                                button @click="goToClientWorkout(clientWorkout.id, client.name, clientWorkout.date.substring(0, 10))"
+                                button @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))"
                             >
                                 {{clientWorkout.date.substring(0, 10)}}
                             </ion-item>
@@ -36,7 +36,8 @@ import {
     // IonGrid,
     // IonRow,
     // IonCol,
-    IonList
+    IonList,
+    IonItem
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -56,7 +57,8 @@ export default {
         // IonGrid,
         // IonRow,
         // IonCol,
-        IonList
+        IonList,
+        IonItem
     },
     data() {
         return {
@@ -75,24 +77,16 @@ export default {
     },
     methods: {
         goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
-
-
             this.$router.push({
-                clientId: this.clientId,
-                clientName: this.clientName,
-                workoutId: clientWorkoutId,
-                clientWorkoutName: clientWorkoutName,
-                clientWorkoutDate: clientWorkoutDate
+                name: 'ClientWorkout',
+                params: {
+                    clientId: this.clientId,
+                    clientName: this.clientName,
+                    workoutId: clientWorkoutId,
+                    clientWorkoutName: clientWorkoutName,
+                    clientWorkoutDate: clientWorkoutDate
+                }
             })
-
-
-            this.navigation.navigate('ClientWorkout', {
-                clientId: this.navigation.getParam('clientId'),
-                clientName: this.clientName,
-                workoutId: clientWorkoutId,
-                clientWorkoutName: clientWorkoutName,
-                clientWorkoutDate: clientWorkoutDate
-            });
         },
     }
 }

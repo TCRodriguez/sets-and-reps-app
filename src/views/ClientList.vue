@@ -39,7 +39,8 @@ import {
     // IonGrid,
     // IonRow,
     // IonCol,
-    IonList
+    IonList,
+    IonItem
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -56,7 +57,8 @@ export default {
         // IonGrid,
         // IonRow,
         // IonCol,
-        IonList
+        IonList,
+        IonItem
     },
     computed: {
         ...mapState('clients', {

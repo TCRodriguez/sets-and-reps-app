@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, createMemoryHistory, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import TabsPage from '../views/TabsPage.vue';
+// import TabsPage from '../views/TabsPage.vue';
 import LoginScreen from '../views/LoginScreen.vue'
 import ClientList from '../views/ClientList.vue';
 import MainTabs from '../views/MainTabs.vue';
@@ -36,9 +36,15 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/ClientList.vue'),
       },
       {
-        path: 'clients/:clientId',
+        path: 'clients/:clientId/workouts',
         name: 'ClientWorkouts',
         component: () => import('@/views/ClientWorkoutsList.vue'),
+        props: true,
+      },
+      {
+        path: 'clients/:clientId/workouts/:workoutId',
+        name: 'ClientWorkout',
+        component: () => import('@/views/ClientWorkout.vue'),
         props: true,
       },
       {

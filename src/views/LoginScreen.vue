@@ -62,7 +62,17 @@
 </template>
 
 <script>
-import { IonGrid, IonRow, IonCol, IonItem, IonToast } from '@ionic/vue'
+import { 
+    IonGrid, 
+    IonRow, 
+    IonCol, 
+    IonItem, 
+    IonToast,
+    IonInput,
+    IonButton,
+    IonContent,
+} from '@ionic/vue'
+
 import { mapState } from 'vuex'
 
 export default {
@@ -72,6 +82,9 @@ export default {
         IonCol,
         IonItem,
         IonToast,
+        IonInput,
+        IonButton,
+        IonContent,
     },
     computed: {
         ...mapState('login', {
