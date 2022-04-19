@@ -14,7 +14,7 @@
                             <ion-item 
                                 v-for="clientWorkout in clientWorkouts" 
                                 :key="clientWorkout.id"
-                                button @click="goToClientWorkout(client.id, client.name)"
+                                button @click="goToClientWorkout(clientWorkout.id, client.name, clientWorkout.date.substring(0, 10))"
                             >
                                 {{clientWorkout.date.substring(0, 10)}}
                             </ion-item>
@@ -23,10 +23,6 @@
                 <!-- </ion-row> -->
             <!-- </ion-grid> -->
         </ion-content>
-
-        <ion-grid>
-            <ion-row></ion-row>
-        </ion-grid>
     </ion-page>
 </template>
 
@@ -77,6 +73,28 @@ export default {
         console.log(this.clientName)
         // this.clientName = this.$route.params.clientName
     },
+    methods: {
+        goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
+
+
+            this.$router.push({
+                clientId: this.clientId,
+                clientName: this.clientName,
+                workoutId: clientWorkoutId,
+                clientWorkoutName: clientWorkoutName,
+                clientWorkoutDate: clientWorkoutDate
+            })
+
+
+            this.navigation.navigate('ClientWorkout', {
+                clientId: this.navigation.getParam('clientId'),
+                clientName: this.clientName,
+                workoutId: clientWorkoutId,
+                clientWorkoutName: clientWorkoutName,
+                clientWorkoutDate: clientWorkoutDate
+            });
+        },
+    }
 }
 </script>
 

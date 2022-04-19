@@ -25,10 +25,6 @@
                 <!-- </ion-row> -->
             <!-- </ion-grid> -->
         </ion-content>
-
-        <ion-grid>
-            <ion-row></ion-row>
-        </ion-grid>
     </ion-page>
 
 </template>
@@ -83,7 +79,7 @@ export default {
             // })
             this.$router.push({
                 // path: `clients/${clientId}`,
-                name: 'clientWorkout',
+                name: 'ClientWorkouts',
                 params: {
                     clientId: clientId,
                     clientName: clientName

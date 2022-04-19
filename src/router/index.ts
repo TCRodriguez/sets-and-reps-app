@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'clients/:clientId',
-        name: 'clientWorkout',
+        name: 'ClientWorkouts',
         component: () => import('@/views/ClientWorkoutsList.vue'),
         props: true,
       },
