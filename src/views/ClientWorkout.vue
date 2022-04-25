@@ -12,20 +12,46 @@
                 <h1>{{clientWorkoutDate}}</h1>
             </ion-text>
             <ion-grid v-for="log in clientWorkoutExerciseLogs" :key="log.id">
-                <ion-row>{{log.exercise_name}}</ion-row>
                 <ion-row>
-                    <ion-col>Sets</ion-col>
-                    <ion-col>Reps</ion-col>
-                    <ion-col>Weight</ion-col>
+                    <ion-text class="exercise-name">
+                        <h2>{{log.exercise_name}}</h2>
+                    </ion-text>
                 </ion-row>
-                <ion-row>
+
+                
+                
+                <ion-row class="table-headers">
+                    <ion-col>
+                        <ion-text>
+                            <h4>Sets</h4>
+                        </ion-text>
+                    </ion-col>
+                    <ion-col>
+                        <ion-text>
+                            <h4>Reps</h4>
+                        </ion-text>
+                    </ion-col>
+                    <ion-col>
+                        <ion-text>
+                            <h4>Weight</h4>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+
+
+                <!-- Perhaps a v-for here to get a row for each set? Set 1, Set 2, Set 3... -->
+                <!-- <ion-row class="table-row" v-for="(set, index) in log.sets" :key="set.id">
+                    <ion-col>{{index + 1}}</ion-col>
+                    <ion-col>{{log.reps}}</ion-col>
+                    <ion-col>{{log.weight}}</ion-col>
+                </ion-row> -->
+                <ion-row class="table-row">
                     <ion-col>{{log.sets}}</ion-col>
                     <ion-col>{{log.reps}}</ion-col>
                     <ion-col>{{log.weight}}</ion-col>
                 </ion-row>
             </ion-grid>
         </ion-content>
-
     </ion-page>
 </template>
 
@@ -39,6 +65,7 @@ import {
     IonGrid,
     IonRow,
     IonCol,
+    IonText
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -61,6 +88,7 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
+        IonText
         // IonList
     },
     computed: {
@@ -74,6 +102,31 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+    /* ion-grid:not(.exercise-name) {
+        border-radius: 50px;
+    } */
 
+    h1 {
+        font-family: 'ArchivoBlack-Regular';
+        font-size: 2rem;
+    }
+
+    .table-headers {
+        background-color: #161316;
+        text-align: center;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .table-row {
+        border: 1px solid #fcfcfc50;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .table-row ion-col {
+        border-left: 0.5px solid #fcfcfc50;
+        border-right: 0.5px solid #fcfcfc50;
+    }
 </style>

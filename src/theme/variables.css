@@ -1,8 +1,12 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
-
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 /** Ionic CSS Variables **/
 :root {
+
+  /* font-family: 'Archivo Black', sans-serif; */
+
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
