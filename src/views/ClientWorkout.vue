@@ -107,6 +107,10 @@ export default {
         border-radius: 50px;
     } */
 
+    ion-content {
+        --padding-start: 5%;
+        --padding-end: 5%;
+    }
     h1 {
         font-family: 'ArchivoBlack-Regular';
         font-size: 2rem;
