@@ -51,6 +51,11 @@
                     <ion-col>{{log.weight}}</ion-col>
                 </ion-row>
             </ion-grid>
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button>
+                    <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
         </ion-content>
     </ion-page>
 </template>
@@ -65,7 +70,10 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonText
+    IonText,
+    IonFab,
+    IonFabButton,
+    IonIcon
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -88,7 +96,10 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
-        IonText
+        IonText,
+        IonFab,
+        IonFabButton,
+        IonIcon
         // IonList
     },
     computed: {
@@ -107,6 +118,18 @@ export default {
         border-radius: 50px;
     } */
 
+    ion-fab-button {
+        --background: #7D80DA;
+    }
+
+    /* ion-icon {
+        color: red;
+    } */
+
+    ion-text {
+        padding: 0;
+    }
+
     ion-content {
         --padding-start: 5%;
         --padding-end: 5%;
@@ -121,6 +144,10 @@ export default {
         text-align: center;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+    }
+
+    .table-row {
+        text-align: center;
     }
 
     .table-row {
