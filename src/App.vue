@@ -17,6 +17,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-  
+<style>
+  /* body::-webkit-scrollbar {
+    display: none;
+  } */
 </style>

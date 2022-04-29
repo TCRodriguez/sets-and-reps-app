@@ -1,5 +1,4 @@
 <template>
-    <!-- <ion-page></ion-page> -->
     <ion-page>
         <ion-header>
             <ion-toolbar>
@@ -17,9 +16,6 @@
                         <h2>{{log.exercise_name}}</h2>
                     </ion-text>
                 </ion-row>
-
-                
-                
                 <ion-row class="table-headers">
                     <ion-col>
                         <ion-text>
@@ -50,9 +46,11 @@
                     <ion-col>{{log.reps}}</ion-col>
                     <ion-col>{{log.weight}}</ion-col>
                 </ion-row>
+
             </ion-grid>
+
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button>
+                <ion-fab-button @click="goToCreateLogScreen()">
                     <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
@@ -109,6 +107,19 @@ export default {
     },
     mounted() {
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
+    },
+    methods: {
+        goToCreateLogScreen() {
+            // alert('test')
+            this.$router.push({
+                name: 'CreateLog',
+                params: {
+                    clientId: this.clientId,
+                    workoutId: this.workoutId,
+                    clientName: this.clientName
+                }
+            })
+        },
     }
 }
 </script>
@@ -117,6 +128,13 @@ export default {
     /* ion-grid:not(.exercise-name) {
         border-radius: 50px;
     } */
+    /* ion-page::-webkit-scrollbar {
+        display: none;
+    } */
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     ion-fab-button {
         --background: #7D80DA;

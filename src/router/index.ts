@@ -48,6 +48,12 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
       },
       {
+        path: 'clients/:clientId/workouts/:workoutId/create',
+        name: 'CreateLog',
+        component: () => import('@/views/CreateLog.vue'),
+        props: true,
+      },
+      {
         path: 'tab2',
         component: () => import('@/views/Tab2Page.vue')
       },
