@@ -33,12 +33,30 @@ const routes: Array<RouteRecordRaw> = [
       // },
       {
         path: 'clients',
+        name: 'ClientList',
         component: () => import('@/views/ClientList.vue'),
+      },
+      {
+        path: 'clients/create',
+        name: 'CreateClient',
+        component: () => import('@/views/CreateClient.vue'),
       },
       {
         path: 'clients/:clientId/workouts',
         name: 'ClientWorkouts',
         component: () => import('@/views/ClientWorkoutsList.vue'),
+        props: true,
+      },
+      {
+        path: 'clients/:clientId/workouts/create',
+        name: 'CreateWorkout',
+        component: () => import('@/views/CreateWorkout.vue'),
+        props: true,
+      },
+      {
+        path: 'clients/:clientId/workouts/:clientWorkoutId/edit',
+        name: 'EditWorkout',
+        component: () => import('@/views/EditWorkout.vue'),
         props: true,
       },
       {
@@ -54,8 +72,26 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        path: 'clients/:clientId/workouts/:workoutId/exercise-logs/:logId',
+        name: 'EditLog',
+        component: () => import('@/views/EditLog.vue'),
+        props: true,
+      },
+      {
+        path: 'exercises',
+        name: 'ExerciseList',
+        component: () => import('@/views/ExerciseList.vue')
+      },
+      {
+        path: 'exercises/create',
+        name: 'CreateExercise',
+        component: () => import('@/views/CreateExercise.vue')
+      },
+      {
+        path: 'exercises/edit',
+        name: 'EditExercise',
+        component: () => import('@/views/EditExercise.vue'),
+        props: true,
       },
       {
         path: 'tab3',

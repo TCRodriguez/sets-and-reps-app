@@ -1,7 +1,7 @@
 import login from '../store/modules/login';
 import clients from '../store/modules/clients';
 import clientWorkouts from '../store/modules/clientWorkouts';
-// import trainerExercises from '../store/modules/trainerExercises';
+import trainerExercises from '../store/modules/trainerExercises';
 
 // import Vue from 'vue';
 // import Vuex from 'vuex';
@@ -15,7 +15,7 @@ const store = createStore({
         login,
         clients,
         clientWorkouts,
-        // trainerExercises,
+        trainerExercises,
     },
     state: {
         message: "Can you see me?",

@@ -11,10 +11,19 @@
                 <h1>{{clientWorkoutDate}}</h1>
             </ion-text>
             <ion-grid v-for="log in clientWorkoutExerciseLogs" :key="log.id">
-                <ion-row>
+                <ion-row class="title-row">
                     <ion-text class="exercise-name">
                         <h2>{{log.exercise_name}}</h2>
                     </ion-text>
+                    <div class="table-buttons">
+                        <ion-button size="small" @click="goToEditLogScreen(log.workout_id, log.id, log.sets, log.reps, log.weight)">
+                            Edit
+                        </ion-button>
+                        <ion-button size="small" color="danger">
+                            Delete
+                        </ion-button>
+                    </div>
+
                 </ion-row>
                 <ion-row class="table-headers">
                     <ion-col>
@@ -48,11 +57,21 @@
                 </ion-row>
 
             </ion-grid>
-
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button @click="goToCreateLogScreen()">
-                    <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
-                </ion-fab-button>
+                <!-- <ion-fab-button>Test</ion-fab-button> -->
+                <!-- <ion-fab-list side="top"> -->
+                    <ion-fab-button @click="goToCreateLogScreen()">
+                        <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
+                    </ion-fab-button>
+                <!-- </ion-fab-list> -->
+
+                <!-- <ion-fab-list side="start"> -->
+                    <!-- <ion-fab-button> -->
+                        <!-- <ion-icon name="trash-outline"></ion-icon> -->
+                        <!-- <trash-icon></trash-icon> -->
+                    <!-- </ion-fab-button> -->
+                <!-- </ion-fab-list> -->
+
             </ion-fab>
         </ion-content>
     </ion-page>
@@ -71,8 +90,11 @@ import {
     IonText,
     IonFab,
     IonFabButton,
-    IonIcon
+    IonIcon,
+    // IonFabList
 } from '@ionic/vue';
+
+// import TrashIcon from '@/components/TrashIcon.vue'
 
 import { mapState } from 'vuex';
 
@@ -97,7 +119,9 @@ export default {
         IonText,
         IonFab,
         IonFabButton,
-        IonIcon
+        IonIcon,
+        // IonFabList,
+        // TrashIcon
         // IonList
     },
     computed: {
@@ -117,6 +141,22 @@ export default {
                     clientId: this.clientId,
                     workoutId: this.workoutId,
                     clientName: this.clientName
+                }
+            })
+        },
+        goToEditLogScreen(workoutId, logId, sets, reps, weight) {
+            // alert('test')
+            this.$router.push({
+                name: 'EditLog',
+                params: {
+                    workoutId: workoutId,
+                    clientName: this.clientName,
+                    clientId: this.clientId,
+                    logId: logId,
+                    sets: sets,
+                    reps: reps,
+                    weight: weight
+
                 }
             })
         },
@@ -143,6 +183,11 @@ export default {
     /* ion-icon {
         color: red;
     } */
+
+    .title-row {
+        justify-content: space-between;
+        align-items: center;
+    }
 
     ion-text {
         padding: 0;
@@ -178,4 +223,6 @@ export default {
         border-left: 0.5px solid #fcfcfc50;
         border-right: 0.5px solid #fcfcfc50;
     }
+
+    
 </style>

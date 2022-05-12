@@ -35,7 +35,7 @@ export default {
             return new Promise((resolve, reject) => {
                 fittyApiClient.post(`clients/${payload.clientId}/workouts`, {
                     client_id: payload.clientId,
-                    name: payload.name
+                    name: payload.clientWorkoutDate
                     },
                     { headers: {
                         'Authorization': rootState.login.token
@@ -53,10 +53,10 @@ export default {
         },
         editClientWorkout({rootState, dispatch}, payload) {
             return new Promise((resolve, reject) => {
-                fittyApiClient.put(`clients/${payload.clientId}/workouts/${payload.workoutId}`, {
+                fittyApiClient.put(`clients/${payload.clientId}/workouts/${payload.clientWorkoutId}`, {
                     client_id: payload.clientId,
-                    workout_id: payload.workoutId,
-                    name: payload.name
+                    workout_id: payload.clientWorkoutId,
+                    name: payload.clientWorkoutDate
                     },
                     { headers: {
                         'Authorization': rootState.login.token
@@ -65,9 +65,11 @@ export default {
                 .then(response => {
                     console.log(response)
                     dispatch('updateWorkouts', payload.clientId)
+                    resolve(response)
                 })
                 .catch(error => {
                     console.log(error.response)
+                    reject(error)
                 })
             })
         },
@@ -122,7 +124,7 @@ export default {
             const clientId = state.workouts.find(clientWorkout => clientWorkout.id == payload.workoutId).client_id
 
             return new Promise((resolve, reject) => {
-                fittyApiClient.put(`clients/${clientId}/workouts/${payload.workoutId}/exercise-logs/${payload.clientWorkoutExerciseLogId}`, {
+                fittyApiClient.put(`clients/${clientId}/workouts/${payload.workoutId}/exercise-logs/${payload.logId}`, {
                     workout_id: payload.workoutId,
                     exercise_id: payload.exerciseId,
                     sets: payload.sets,
@@ -136,8 +138,12 @@ export default {
                     },
                 })
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
+                    console.log(state.logs)
                     dispatch('updateWorkouts', clientId)
+                    .then(() => {
+                        dispatch('getClientWorkoutExerciseLogs', payload.workoutId)
+                    })
                     resolve(response)
                 })
                 .catch(error => {
