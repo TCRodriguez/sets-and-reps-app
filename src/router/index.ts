@@ -42,6 +42,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/CreateClient.vue'),
       },
       {
+        path: 'clients/:clientId/edit',
+        name: 'EditClient',
+        component: () => import('@/views/EditClient.vue'),
+        props: true,
+      },
+      {
         path: 'clients/:clientId/workouts',
         name: 'ClientWorkouts',
         component: () => import('@/views/ClientWorkoutsList.vue'),
