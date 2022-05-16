@@ -3,28 +3,41 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{clientName}}</ion-title>
-                <ion-buttons slot="end">
-                    <ion-button @click="optionsActive = !optionsActive">...</ion-button>
-                </ion-buttons>
 
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
-            <ion-list>
-                <ion-item 
+            <ion-list ref="workoutsList">
+                <ion-item-sliding 
                     v-for="clientWorkout in clientWorkouts" 
                     :key="clientWorkout.id"
                     button @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))"
                 >
-                    <div>
+                    
+                    
+                    <ion-item-options side="start">
+                        <ion-item-option color="danger" @click="deleteWorkout()">Delete</ion-item-option>
+                    </ion-item-options>
+
+                    <ion-item>
+                        <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
+                    </ion-item>
+
+                    <ion-item-options side="end">
+                        <ion-item-option 
+                        @click="goToEditWorkoutScreen(clientWorkout.id, clientWorkout.date.substring(0, 10))"
+                        >Edit</ion-item-option>
+                    </ion-item-options>
+                    
+                    <!-- <div>
                         <ion-text>
                             <p>{{clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10)}}</p>
                         </ion-text>
-                    </div>
+                    </div> -->
 
 
 
-                </ion-item>
+                </ion-item-sliding>
             </ion-list>
 
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
@@ -50,7 +63,9 @@ import {
     IonItem,
     IonFab,
     IonFabButton,
-    IonButton,
+    // IonButton,
+    IonItemSliding,
+    IonItemOptions
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -76,13 +91,15 @@ export default {
         IonItem,
         IonFab,
         IonFabButton,
-        IonButton,
+        // IonButton,
+        IonItemSliding,
+        IonItemOptions
         // OptionsButton
     },
     data() {
         return {
             // clientName: null,
-            optionsActive: false,
+            // optionsActive: false,
             editButtonClicked: false,
         }
     },
@@ -99,12 +116,12 @@ export default {
     },
     methods: {
         goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
-            console.log("Did goToClientWorkout get hit?")
+            // console.log("Did goToClientWorkout get hit?")
 
-            // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
-            if(this.editButtonClicked)  {
-                return
-            }
+            // // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
+            // if(this.editButtonClicked)  {
+            //     return
+            // }
 
             this.$router.push({
                 name: 'ClientWorkout',
@@ -128,6 +145,7 @@ export default {
         goToEditWorkoutScreen(clientWorkoutId, clientWorkoutDate) {
             this.editButtonClicked = true;
 
+            this.$refs.workoutsList.$el.closeSlidingItems();
             this.$router.push({
                 name: 'EditWorkout',
                 params: {
