@@ -63,9 +63,12 @@ import {
     IonItem,
     IonFab,
     IonFabButton,
+    IonIcon,
     // IonButton,
     IonItemSliding,
-    IonItemOptions
+    IonItemOptions,
+    IonItemOption,
+    IonLabel,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -91,9 +94,12 @@ export default {
         IonItem,
         IonFab,
         IonFabButton,
+        IonIcon,
         // IonButton,
         IonItemSliding,
-        IonItemOptions
+        IonItemOptions,
+        IonItemOption,
+        IonLabel,
         // OptionsButton
     },
     data() {
@@ -119,9 +125,9 @@ export default {
             // console.log("Did goToClientWorkout get hit?")
 
             // // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
-            // if(this.editButtonClicked)  {
-            //     return
-            // }
+            if(this.editButtonClicked)  {
+                return
+            }
 
             this.$router.push({
                 name: 'ClientWorkout',

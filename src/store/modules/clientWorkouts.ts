@@ -151,7 +151,27 @@ export default {
                     reject(error)
                 })
             })
-
+        },
+        deleteClientWorkoutExerciseLog({state, rootState, dispatch}, logData) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.delete(`clients/${logData.clientId}/workouts/${logData.workoutId}/exercise-logs/${logData.logId}`, {
+                    headers: {
+                        'Authorization': rootState.login.token
+                    }
+                })
+                .then(response => {
+                    // console.log(response)
+                    dispatch('updateWorkouts', logData.clientId)
+                    .then(() => {
+                        dispatch('getClientWorkoutExerciseLogs', logData.workoutId)
+                    })
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    reject(error)
+                })
+            })
         }
     },
 

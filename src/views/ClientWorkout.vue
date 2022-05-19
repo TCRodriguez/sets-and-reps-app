@@ -16,7 +16,7 @@
                     :key="log.id"
                 >
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteLog()">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="deleteLog(log.workout_id, log.id)">Delete</ion-item-option>
                     </ion-item-options>
 
                     <!-- <ion-item>
@@ -77,9 +77,9 @@
 
 
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                    <ion-fab-button @click="goToCreateLogScreen()">
-                        <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
-                    </ion-fab-button>
+                <ion-fab-button @click="goToCreateLogScreen()">
+                    <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
+                </ion-fab-button>
             </ion-fab>
         </ion-content>
     </ion-page>
@@ -99,6 +99,11 @@ import {
     IonFab,
     IonFabButton,
     IonIcon,
+    IonList,
+    IonItem,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
     // IonFabList
 } from '@ionic/vue';
 
@@ -124,10 +129,15 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
+        IonList,
+        IonItem,
         IonText,
         IonFab,
         IonFabButton,
         IonIcon,
+        IonItemSliding,
+        IonItemOptions,
+        IonItemOption,
         // IonFabList,
         // TrashIcon
         // IonList
@@ -170,6 +180,18 @@ export default {
                 }
             })
         },
+        deleteLog(workoutId, logId) {
+            console.log(this.clientId)
+            console.log(workoutId)
+            console.log(logId)
+            const logData = {
+                clientId: this.clientId,
+                workoutId: workoutId,
+                logId: logId,
+            }
+            this.$refs.logsList.$el.closeSlidingItems();
+            this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
+        }
     }
 }
 </script>
