@@ -16,7 +16,7 @@
                     
                     
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteWorkout()">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="deleteWorkout(clientWorkout.id)">Delete</ion-item-option>
                     </ion-item-options>
 
                     <ion-item>
@@ -107,6 +107,7 @@ export default {
             // clientName: null,
             // optionsActive: false,
             editButtonClicked: false,
+            deleteButtonClicked: false,
         }
     },
     computed: {
@@ -125,7 +126,7 @@ export default {
             // console.log("Did goToClientWorkout get hit?")
 
             // // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
-            if(this.editButtonClicked)  {
+            if(this.editButtonClicked || this.deleteButtonClicked)  {
                 return
             }
 
@@ -160,6 +161,16 @@ export default {
                     clientWorkoutDate: clientWorkoutDate
                 }
             })
+        },
+        deleteWorkout(workoutId) {
+            this.deleteButtonClicked = true;
+            this.$refs.workoutsList.$el.closeSlidingItems();
+
+            const workoutData = {
+                clientId: this.clientId,
+                workoutId: workoutId
+            }
+            this.$store.dispatch('clientWorkouts/deleteClientWorkout', workoutData)
         }
     }
 }
