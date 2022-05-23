@@ -92,6 +92,12 @@ ion-toast {
   /* --color: #000; */
 }
 
+ion-popover {
+  --ion-backdrop-color: black;
+  --backdrop-opacity: 0.75
+
+}
+
 
 
 @media (prefers-color-scheme: dark) {

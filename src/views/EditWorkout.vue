@@ -53,7 +53,7 @@ export default {
     props: {
         clientName: {type: String, required: true},
         clientId: {type: String, required: true},
-        clientWorkoutName: {type: String, required: true},
+        // clientWorkoutName: {type: String, required: true},
         clientWorkoutId: {type: String, required: true},
         // clientWorkoutDate: {type: String, required: true}
     },

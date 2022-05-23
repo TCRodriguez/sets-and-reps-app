@@ -28,9 +28,10 @@
             </ion-grid>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="createLog()">
-                    <ion-icon name="checkmark-outline"></ion-icon>
+                    <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
                     <!-- <ion-icon name="checkbox-outline"></ion-icon> -->
                     <!-- <ion-icon name="checkbox"></ion-icon> -->
+                    OK
                 </ion-fab-button>
             </ion-fab>
         </ion-content>
@@ -50,7 +51,7 @@ import {
     IonText,
     IonFab,
     IonFabButton,
-    IonIcon,
+    // IonIcon,
     IonInput
 } from '@ionic/vue';
 
@@ -79,7 +80,7 @@ export default {
         IonText,
         IonFab,
         IonFabButton,
-        IonIcon,
+        // IonIcon,
         IonInput,
         // checkmarkOutline
         // IonList

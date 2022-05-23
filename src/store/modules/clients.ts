@@ -130,6 +130,24 @@ export default {
                 console.log("Client NOT saved")
             });
         },
+        deleteClient({rootState, dispatch}, clientData) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.delete(`clients/${clientData.clientId}`, {
+                    headers: {
+                        'Authorization': rootState.login.token
+                    }
+                })
+                .then(response => {
+                    console.log(response)
+                    dispatch('updateClientList')
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                    reject(error)
+                })
+            })
+        }
     },
     mutations: {
         updateClientList(state, clients) {

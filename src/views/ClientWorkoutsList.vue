@@ -11,15 +11,13 @@
                 <ion-item-sliding 
                     v-for="clientWorkout in clientWorkouts" 
                     :key="clientWorkout.id"
-                    button @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))"
+                    button
                 >
-                    
-                    
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteWorkout(clientWorkout.id)">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="openDeleteWorkoutPopover()">Delete</ion-item-option>
                     </ion-item-options>
 
-                    <ion-item>
+                    <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))">
                         <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
                     </ion-item>
 
@@ -28,13 +26,18 @@
                         @click="goToEditWorkoutScreen(clientWorkout.id, clientWorkout.date.substring(0, 10))"
                         >Edit</ion-item-option>
                     </ion-item-options>
-                    
-                    <!-- <div>
-                        <ion-text>
-                            <p>{{clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10)}}</p>
-                        </ion-text>
-                    </div> -->
 
+                <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteWorkoutPopover()">
+                    <ion-content>
+                        <ion-text>Are you sure you want to delete this log?</ion-text>
+                        <ion-item :button="true" :detail="false" @click="confirmDelete(clientWorkout.id)">
+                            <ion-label>Yes</ion-label>
+                        </ion-item>
+                        <ion-item :button="true" :detail="false" @click="closeDeleteWorkoutPopover()">
+                            <ion-label>No</ion-label>
+                        </ion-item>
+                    </ion-content>
+                </ion-popover>
 
 
                 </ion-item-sliding>
@@ -69,10 +72,13 @@ import {
     IonItemOptions,
     IonItemOption,
     IonLabel,
+    IonPopover,
+    IonText,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
 
+import { ref } from 'vue';
 // import OptionsButton from '@/components/OptionsButton.vue'
 
 
@@ -100,14 +106,17 @@ export default {
         IonItemOptions,
         IonItemOption,
         IonLabel,
+        IonPopover,
+        IonText,
         // OptionsButton
     },
     data() {
         return {
             // clientName: null,
             // optionsActive: false,
-            editButtonClicked: false,
-            deleteButtonClicked: false,
+            // editButtonClicked: false,
+            // deleteButtonClicked: false,
+            isOpenRef: false,
         }
     },
     computed: {
@@ -126,9 +135,9 @@ export default {
             // console.log("Did goToClientWorkout get hit?")
 
             // // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
-            if(this.editButtonClicked || this.deleteButtonClicked)  {
-                return
-            }
+            // if(this.editButtonClicked || this.deleteButtonClicked)  {
+            //     return
+            // }
 
             this.$router.push({
                 name: 'ClientWorkout',
@@ -150,7 +159,7 @@ export default {
             })
         },
         goToEditWorkoutScreen(clientWorkoutId, clientWorkoutDate) {
-            this.editButtonClicked = true;
+            // this.editButtonClicked = true;
 
             this.$refs.workoutsList.$el.closeSlidingItems();
             this.$router.push({
@@ -162,15 +171,25 @@ export default {
                 }
             })
         },
-        deleteWorkout(workoutId) {
-            this.deleteButtonClicked = true;
+        openDeleteWorkoutPopover() {
+            this.isOpenRef = ref(true);
             this.$refs.workoutsList.$el.closeSlidingItems();
-
+            // this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
+        },
+        closeDeleteWorkoutPopover() {
+            console.log("Open ref is now false")
+            this.isOpenRef = ref(false);
+        },
+        confirmDelete(workoutId) {
+            console.log("Did I happen?")
             const workoutData = {
                 clientId: this.clientId,
                 workoutId: workoutId
             }
             this.$store.dispatch('clientWorkouts/deleteClientWorkout', workoutData)
+            .then(() => {
+                this.isOpenRef = ref(false);
+            })
         }
     }
 }

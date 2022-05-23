@@ -16,12 +16,13 @@
                     :key="log.id"
                 >
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteLog(log.workout_id, log.id)">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="openDeleteLogPopover()">Delete</ion-item-option>
                     </ion-item-options>
 
                     <!-- <ion-item>
                         <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
                     </ion-item> -->
+
                     <ion-item>
                         <ion-grid>
                             <ion-row class="title-row">
@@ -70,7 +71,17 @@
                         @click="goToEditLogScreen(log.workout_id, log.id, log.sets, log.reps, log.weight)"
                         >Edit</ion-item-option>
                     </ion-item-options>
-                    <!-- logId, sets, reps, weight -->
+                <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteLogPopover()">
+                    <ion-content>
+                        <ion-text>Are you sure you want to delete this log?</ion-text>
+                        <ion-item :button="true" :detail="false" @click="confirmDelete(log.workout_id, log.id)">
+                            <ion-label>Yes</ion-label>
+                        </ion-item>
+                        <ion-item :button="true" :detail="false" @click="closeDeleteLogPopover()">
+                            <ion-label>No</ion-label>
+                        </ion-item>
+                    </ion-content>
+                </ion-popover>
                 </ion-item-sliding>
             </ion-list>
 
@@ -81,7 +92,9 @@
                     <ion-icon src="https://dl.dropbox.com/s/tumsf8khofi8sbk/add-log.svg"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
+
         </ion-content>
+
     </ion-page>
 </template>
 
@@ -104,8 +117,12 @@ import {
     IonItemSliding,
     IonItemOptions,
     IonItemOption,
+    IonPopover,
+    IonLabel,
     // IonFabList
 } from '@ionic/vue';
+
+import { ref } from 'vue';
 
 // import TrashIcon from '@/components/TrashIcon.vue'
 
@@ -138,6 +155,8 @@ export default {
         IonItemSliding,
         IonItemOptions,
         IonItemOption,
+        IonPopover,
+        IonLabel,
         // IonFabList,
         // TrashIcon
         // IonList
@@ -149,6 +168,11 @@ export default {
     },
     mounted() {
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
+    },
+    data() {
+        return {
+            isOpenRef: ref(false)
+        }
     },
     methods: {
         goToCreateLogScreen() {
@@ -180,17 +204,26 @@ export default {
                 }
             })
         },
-        deleteLog(workoutId, logId) {
-            console.log(this.clientId)
-            console.log(workoutId)
-            console.log(logId)
+        openDeleteLogPopover() {
+            this.isOpenRef = ref(true);
+            this.$refs.logsList.$el.closeSlidingItems();
+            // this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
+        },
+        closeDeleteLogPopover() {
+            console.log("Open ref is now false")
+            this.isOpenRef = ref(false);
+        },
+        confirmDelete(workoutId, logId) {
+            console.log("Did I happen?")
             const logData = {
                 clientId: this.clientId,
                 workoutId: workoutId,
                 logId: logId,
             }
-            this.$refs.logsList.$el.closeSlidingItems();
             this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
+            .then(() => {
+                this.isOpenRef = ref(false);
+            })
         }
     }
 }

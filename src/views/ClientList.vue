@@ -17,15 +17,14 @@
                 <ion-item-sliding 
                     v-for="client in clients" 
                     :key="client.id"
-                    @click="goToClientWorkoutsListScreen(client.id, client.name)"
                 >
                     
 
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteClient()">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="deleteClient(client.id)">Delete</ion-item-option>
                     </ion-item-options>
 
-                    <ion-item>
+                    <ion-item @click="goToClientWorkoutsListScreen(client.id, client.name)">
                         <ion-label>{{ client.first_name }} {{ client.last_name }}</ion-label>
                     </ion-item>
 
@@ -114,6 +113,7 @@ export default {
         return {
             // optionsActive: false,
             editButtonClicked: false,
+            deleteButtonClicked: false,
         }
     },
     mounted() {
@@ -128,9 +128,9 @@ export default {
         },
         goToClientWorkoutsListScreen(clientId, clientName) {
             // console.log("client workouts list hit")
-            if(this.editButtonClicked)  {
-                return
-            }
+            // if(this.editButtonClicked || this.deleteButtonClicked)  {
+            //     return
+            // }
             // console.log("testing")
 
             // this.navigation.navigate("ClientWorkouts", {
@@ -154,7 +154,7 @@ export default {
             console.log(clientEmail)
             console.log(clientPhoneNumber)
 
-            this.editButtonClicked = true;
+            // this.editButtonClicked = true;
             this.$refs.clientList.$el.closeSlidingItems();
             this.$router.push({
                 name: 'EditClient',
@@ -167,6 +167,22 @@ export default {
                     phone_number: clientPhoneNumber,
                 }
             })
+
+            // this.editButtonClicked = false;
+        },
+        deleteClient(clientId) {
+            // this.deleteButtonClicked = true;
+            this.$refs.clientList.$el.closeSlidingItems();
+
+            const clientData = {
+                clientId: clientId,
+            }
+
+            this.$store.dispatch('clients/deleteClient', clientData)
+            .then(() => {
+                this.deleteButtonClicked = false;
+            })
+
         }
     }
 }
