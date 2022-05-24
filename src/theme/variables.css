@@ -94,8 +94,7 @@ ion-toast {
 
 ion-popover {
   --ion-backdrop-color: black;
-  --backdrop-opacity: 0.75
-
+  --backdrop-opacity: 0.75;
 }
 
 

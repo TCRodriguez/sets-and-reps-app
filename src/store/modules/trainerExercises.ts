@@ -1,3 +1,4 @@
+import { resolveComponent } from 'vue';
 import fittyApiClient from '../../axios-http';
 
 export default {
@@ -55,6 +56,24 @@ export default {
                     { headers: {
                         'Authorization': rootState.login.token
                     },
+                })
+                .then(response => {
+                    console.log(response)
+                    dispatch('updateExercises')
+                    resolve(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    reject(error)
+                })
+            })
+        },
+        deleteExercise({rootState, dispatch}, exerciseId) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.delete(`exercises/${exerciseId}`, {
+                    headers: {
+                        'Authorization': rootState.login.token
+                    }
                 })
                 .then(response => {
                     console.log(response)

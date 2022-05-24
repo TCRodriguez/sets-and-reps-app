@@ -14,7 +14,7 @@
                     button
                 >
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="openDeleteWorkoutPopover()">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="openDeleteWorkoutPopover(clientWorkout.id)">Delete</ion-item-option>
                     </ion-item-options>
 
                     <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))">
@@ -27,7 +27,7 @@
                         >Edit</ion-item-option>
                     </ion-item-options>
 
-                <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteWorkoutPopover()">
+                <!-- <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteWorkoutPopover()">
                     <ion-content>
                         <ion-text>Are you sure you want to delete this log?</ion-text>
                         <ion-item :button="true" :detail="false" @click="confirmDelete(clientWorkout.id)">
@@ -37,11 +37,23 @@
                             <ion-label>No</ion-label>
                         </ion-item>
                     </ion-content>
-                </ion-popover>
+                </ion-popover> -->
 
 
                 </ion-item-sliding>
             </ion-list>
+
+            <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteWorkoutPopover()">
+                <ion-content>
+                    <ion-text>Are you sure you want to delete this log?</ion-text>
+                    <ion-item :button="true" :detail="false" @click="confirmDelete()">
+                        <ion-label>Yes</ion-label>
+                    </ion-item>
+                    <ion-item :button="true" :detail="false" @click="closeDeleteWorkoutPopover()">
+                        <ion-label>No</ion-label>
+                    </ion-item>
+                </ion-content>
+            </ion-popover>
 
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="goToCreateWorkoutScreen()">
@@ -117,6 +129,7 @@ export default {
             // editButtonClicked: false,
             // deleteButtonClicked: false,
             isOpenRef: false,
+            selectedWorkoutId: null,
         }
     },
     computed: {
@@ -171,7 +184,8 @@ export default {
                 }
             })
         },
-        openDeleteWorkoutPopover() {
+        openDeleteWorkoutPopover(workoutId) {
+            this.selectedWorkoutId = workoutId;
             this.isOpenRef = ref(true);
             this.$refs.workoutsList.$el.closeSlidingItems();
             // this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
@@ -180,17 +194,17 @@ export default {
             console.log("Open ref is now false")
             this.isOpenRef = ref(false);
         },
-        confirmDelete(workoutId) {
+        confirmDelete() {
             console.log("Did I happen?")
             const workoutData = {
                 clientId: this.clientId,
-                workoutId: workoutId
+                workoutId: this.selectedWorkoutId,
             }
             this.$store.dispatch('clientWorkouts/deleteClientWorkout', workoutData)
             .then(() => {
                 this.isOpenRef = ref(false);
             })
-        }
+        },
     }
 }
 </script>

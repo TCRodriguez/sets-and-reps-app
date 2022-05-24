@@ -21,7 +21,7 @@
                     
 
                     <ion-item-options side="start">
-                        <ion-item-option color="danger" @click="deleteClient(client.id)">Delete</ion-item-option>
+                        <ion-item-option color="danger" @click="openDeleteClientPopover(client.id)">Delete</ion-item-option>
                     </ion-item-options>
 
                     <ion-item @click="goToClientWorkoutsListScreen(client.id, client.name)">
@@ -34,6 +34,18 @@
                         >Edit</ion-item-option>
                     </ion-item-options>
 
+                    <!-- <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteClientPopover()">
+                        <ion-content>
+                            <ion-text>Are you sure you want to delete this log?</ion-text>
+                            <ion-item :button="true" :detail="false" @click="confirmDelete(client.id)">
+                                <ion-label>Yes</ion-label>
+                            </ion-item>
+                            <ion-item :button="true" :detail="false" @click="closeDeleteClientPopover()">
+                                <ion-label>No</ion-label>
+                            </ion-item>
+                        </ion-content>
+                    </ion-popover> -->
+
                     <!-- <div>
                         <ion-text>
                             {{ client.first_name }} {{ client.last_name }}
@@ -45,6 +57,17 @@
                     </div> -->
                 </ion-item-sliding>
             </ion-list>
+            <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteClientPopover()">
+                <ion-content>
+                    <ion-text>Are you sure you want to delete this log?</ion-text>
+                    <ion-item :button="true" :detail="false" @click="confirmDelete()">
+                        <ion-label>Yes</ion-label>
+                    </ion-item>
+                    <ion-item :button="true" :detail="false" @click="closeDeleteClientPopover()">
+                        <ion-label>No</ion-label>
+                    </ion-item>
+                </ion-content>
+            </ion-popover>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="goToCreateClientScreen()">
                     <add-client-icon class="add-client-icon"></add-client-icon>
@@ -52,7 +75,6 @@
             </ion-fab>
         </ion-content>
     </ion-page>
-
 </template>
 
 <script>
@@ -72,12 +94,16 @@ import {
     IonItemOption,
     IonLabel,
     IonFab,
-    IonFabButton
+    IonFabButton,
+    IonPopover,
+    IonText,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
 
-import AddClientIcon from '@/components/AddClientIcon.vue'
+import AddClientIcon from '@/components/AddClientIcon.vue';
+
+import { ref } from 'vue';
 
 // import OptionsButton from '@/components/OptionsButton.vue'
 
@@ -102,6 +128,8 @@ export default {
         AddClientIcon,
         IonFab,
         IonFabButton,
+        IonPopover,
+        IonText,
         // OptionsButton
     },
     computed: {
@@ -112,8 +140,10 @@ export default {
     data() {
         return {
             // optionsActive: false,
-            editButtonClicked: false,
-            deleteButtonClicked: false,
+            // editButtonClicked: false,
+            // deleteButtonClicked: false,
+            isOpenRef: false,
+            selectedClientId: null,
         }
     },
     mounted() {
@@ -170,19 +200,28 @@ export default {
 
             // this.editButtonClicked = false;
         },
-        deleteClient(clientId) {
+        openDeleteClientPopover(clientId) {
+            this.selectedClientId = clientId;
+            this.isOpenRef = ref(true);
+            this.$refs.clientList.$el.closeSlidingItems();
+            // this.$store.dispatch('clientWorkouts/deleteClientWorkoutExerciseLog', logData)
+        },
+        closeDeleteClientPopover() {
+            console.log("Open ref is now false")
+            this.isOpenRef = ref(false);
+        },
+        confirmDelete() {
             // this.deleteButtonClicked = true;
             this.$refs.clientList.$el.closeSlidingItems();
 
             const clientData = {
-                clientId: clientId,
+                clientId: this.selectedClientId,
             }
 
             this.$store.dispatch('clients/deleteClient', clientData)
             .then(() => {
-                this.deleteButtonClicked = false;
+                this.isOpenRef = ref(false);
             })
-
         }
     }
 }
