@@ -85,6 +85,7 @@ http://ionicframework.com/docs/theming/ */
 
 ion-button {
   --background: var(--ion-color-purple);
+  --color: white;
 }
 
 ion-toast {

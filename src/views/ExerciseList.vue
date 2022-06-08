@@ -115,6 +115,9 @@ export default {
         goToCreateExerciseScreen() {
             this.$router.push({
                 name: 'CreateExercise',
+                params: {
+                    backButtonText: 'Exercises'
+                }
             })
         },
         goToEditExerciseScreen(exerciseName, exerciseId) {
@@ -123,7 +126,8 @@ export default {
                 name: 'EditExercise',
                 params: {
                     exerciseName: exerciseName,
-                    exerciseId: exerciseId
+                    exerciseId: exerciseId,
+                    backButtonText: 'Exercises'
                 }
             })
         },

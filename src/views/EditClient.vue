@@ -3,6 +3,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>Edit Client</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -49,6 +54,8 @@ import {
     IonInput,
     IonFab,
     IonFabButton,
+    IonButtons,
+    IonBackButton,
     // IonButton,
 } from '@ionic/vue';
 
@@ -65,6 +72,7 @@ export default {
             starting_weight: { type: String, required: true },
             email: { type: String, required: true },
             phone_number: { type: String, required: true },
+            backButtonText: {type: String, required: true},
     },
     components: { 
         IonPage,
@@ -79,6 +87,8 @@ export default {
         IonInput,
         IonFab,
         IonFabButton,
+        IonButtons,
+        IonBackButton,
         // IonButton,
     },
     data() {
@@ -116,7 +126,7 @@ export default {
             this.$store.dispatch('clients/editClient', clientData)
             .then(() => {
                 this.$router.replace({
-                    name: 'ClientList'
+                    name: 'ClientList',
                 })
             })
 

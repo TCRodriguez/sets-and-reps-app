@@ -4,6 +4,13 @@
             <ion-toolbar>
                 <!-- <ion-title>{{clientWorkoutDate}}</ion-title> -->
                 <ion-title>{{clientName}}</ion-title>
+                <ion-buttons slot="start">
+                    <!-- <ion-back-button
+                        :text="backButtonText"
+                        defaultHref="/tabs/clients/:clientId/workouts"
+                    ></ion-back-button> -->
+                    <ion-button @click="goToWorkouts()">&#60; Workouts</ion-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -129,6 +136,10 @@ import {
     IonItemOption,
     IonPopover,
     IonLabel,
+    IonButtons,
+    // IonBackButton,
+    IonButton,
+    useIonRouter,
     // IonFabList
 } from '@ionic/vue';
 
@@ -145,7 +156,8 @@ export default {
         clientId: {type: String, required: true},
         workoutId: {type: String, required: true},
         clientWorkoutName: {type: String, required: true},
-        clientWorkoutDate: {type: String, required: true}
+        clientWorkoutDate: {type: String, required: true},
+        backButtonText: {type: String, required: true}
     },
     components: { 
         IonPage,
@@ -167,6 +179,9 @@ export default {
         IonItemOption,
         IonPopover,
         IonLabel,
+        IonButtons,
+        // IonBackButton,
+        IonButton,
         // IonFabList,
         // TrashIcon
         // IonList
@@ -178,6 +193,16 @@ export default {
     },
     mounted() {
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
+    },
+    setup(props) {
+            const ionRouter = useIonRouter();
+            const goToWorkouts = () => {
+                console.log(props.clientId)
+                ionRouter.back(`/tabs/clients/${props.clientId}/workouts`)
+            };
+
+            return { goToWorkouts }
+
     },
     data() {
         return {
@@ -237,7 +262,11 @@ export default {
             .then(() => {
                 this.isOpenRef = ref(false);
             })
-        }
+        },
+        // goToWorkouts() {
+        //     // alert('boom')
+
+        // }
     }
 }
 </script>
@@ -256,6 +285,10 @@ export default {
 
     ion-fab-button {
         --background: #7D80DA;
+    }
+
+    .button-native {
+        color: white;
     }
 
     /* ion-icon {

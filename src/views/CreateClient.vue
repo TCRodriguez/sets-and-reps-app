@@ -3,6 +3,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>Create New Client</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -48,6 +53,8 @@ import {
     IonInput,
     IonFab,
     IonFabButton,
+    IonButtons,
+    IonBackButton,
     // IonButton,
 } from '@ionic/vue';
 
@@ -57,6 +64,9 @@ import { mapState } from 'vuex';
 
 
 export default {
+    props: {
+        backButtonText: {type: String, required: true},
+    },
     components: { 
         IonPage,
         IonHeader,
@@ -70,6 +80,8 @@ export default {
         IonInput,
         IonFab,
         IonFabButton,
+        IonButtons,
+        IonBackButton,
         // IonButton,
     },
     data() {

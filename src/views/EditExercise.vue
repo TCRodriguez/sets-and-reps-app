@@ -4,6 +4,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>Edit Exercise</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -43,13 +48,16 @@ import {
     IonFab,
     IonFabButton,
     // IonIcon,
-    IonInput
+    IonInput,
+    IonButtons,
+    IonBackButton,
 } from '@ionic/vue';
 
 export default {
     props: {
         exerciseName: {type: String, required: true},
         exerciseId: {type: String, required: true},
+        backButtonText: {type: String, required: true},
         // clientName: {type: String, required: true},
         // clientId: {type: String, required: true},
     },
@@ -67,6 +75,8 @@ export default {
         IonFabButton,
         // IonIcon,
         IonInput,
+        IonButtons,
+        IonBackButton,
         // checkmarkOutline
         // IonList
     },

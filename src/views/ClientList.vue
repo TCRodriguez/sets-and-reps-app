@@ -153,7 +153,10 @@ export default {
         goToCreateClientScreen() {
             // this.navigation.navigate("CreateClient")
             this.$router.push({
-                name: 'CreateClient'
+                name: 'CreateClient',
+                params: {
+                    backButtonText: 'Clients'
+                }
             })
         },
         goToClientWorkoutsListScreen(clientId, clientName) {
@@ -172,7 +175,8 @@ export default {
                 name: 'ClientWorkouts',
                 params: {
                     clientId: clientId,
-                    clientName: clientName
+                    clientName: clientName,
+                    backButtonText: 'Clients'
                 }
             })
         },
@@ -195,6 +199,7 @@ export default {
                     starting_weight: clientStartingWeight,
                     email: clientEmail,
                     phone_number: clientPhoneNumber,
+                    backButtonText: 'Clients'
                 }
             })
 

@@ -40,6 +40,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'clients/create',
         name: 'CreateClient',
         component: () => import('@/views/CreateClient.vue'),
+        props: true,
       },
       {
         path: 'clients/:clientId/edit',
@@ -66,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
       },
       {
-        path: 'clients/:clientId/workouts/:workoutId',
+        path: 'clients/:clientId/workouts/:workoutId/exercise-logs',
         name: 'ClientWorkout',
         component: () => import('@/views/ClientWorkout.vue'),
         props: true,
@@ -86,12 +87,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'exercises',
         name: 'ExerciseList',
-        component: () => import('@/views/ExerciseList.vue')
+        component: () => import('@/views/ExerciseList.vue'),
+        props: true,
       },
       {
         path: 'exercises/create',
         name: 'CreateExercise',
-        component: () => import('@/views/CreateExercise.vue')
+        component: () => import('@/views/CreateExercise.vue'),
+        props: true,
       },
       {
         path: 'exercises/edit',

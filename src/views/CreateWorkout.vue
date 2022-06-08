@@ -3,6 +3,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{clientName}}</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -11,10 +16,11 @@
                     <ion-text>
                         <h1>Create Workout</h1>
                     </ion-text>
+                    <ion-datetime presentation="date" v-model="clientWorkoutDate"></ion-datetime>
                 </ion-row>
-                <ion-row>
+                <!-- <ion-row>
                     <ion-input placeholder="Date" v-model="clientWorkoutDate"></ion-input>
-                </ion-row>
+                </ion-row> -->
             </ion-grid>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="createWorkout()">
@@ -42,7 +48,10 @@ import {
     IonFab,
     IonFabButton,
     // IonIcon,
-    IonInput
+    // IonInput,
+    IonButtons,
+    IonBackButton,
+    IonDatetime,
 } from '@ionic/vue';
 
 import { checkmarkOutline } from "ionicons/icons";
@@ -54,6 +63,7 @@ export default {
     props: {
         clientName: {type: String, required: true},
         clientId: {type: String, required: true},
+        backButtonText: {type: String, required: true},
         // clientWorkoutName: {type: String, required: true},
         // clientWorkoutDate: {type: String, required: true}
     },
@@ -70,7 +80,10 @@ export default {
         IonFab,
         IonFabButton,
         // IonIcon,
-        IonInput,
+        // IonInput,
+        IonButtons,
+        IonBackButton,
+        IonDatetime,
         // checkmarkOutline
         // IonList
     },
@@ -84,14 +97,18 @@ export default {
     },
     methods: {
         createWorkout() {
+            console.log(this.clientWorkoutDate.substring(0, 10));
             const data = {
                 clientId: this.clientId,
-                clientWorkoutDate: this.clientWorkoutDate,
+                clientWorkoutDate: this.clientWorkoutDate.substring(0, 10),
             }
             this.$store.dispatch('clientWorkouts/createClientWorkout', data)
             .then(() => {
                 this.$router.replace({
-                    name: 'ClientWorkouts'
+                    name: 'ClientWorkouts',
+                    params: {
+                        backButtonText: "Clients"
+                    }
                 })
             })
         }

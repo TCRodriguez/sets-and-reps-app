@@ -3,7 +3,12 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{clientName}}</ion-title>
-
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                        defaultHref="/tabs/clients"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -86,6 +91,8 @@ import {
     IonLabel,
     IonPopover,
     IonText,
+    IonButtons,
+    IonBackButton,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -97,7 +104,8 @@ import { ref } from 'vue';
 export default {
     props: {
         clientName: {type: String, required: true},
-        clientId: {type: String, required: true}
+        clientId: {type: String, required: true},
+        backButtonText: {type: String, required: true},
     },
     components: { 
         IonPage,
@@ -120,6 +128,9 @@ export default {
         IonLabel,
         IonPopover,
         IonText,
+        IonButtons,
+
+    IonBackButton,
         // OptionsButton
     },
     data() {
@@ -130,6 +141,7 @@ export default {
             // deleteButtonClicked: false,
             isOpenRef: false,
             selectedWorkoutId: null,
+            // backButtonText: ""
         }
     },
     computed: {
@@ -142,6 +154,10 @@ export default {
         this.editButtonClicked = false;
 
         this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
+        .then(() => {
+            console.log(this.clientWorkouts)
+        })
+
     },
     methods: {
         goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
@@ -159,7 +175,8 @@ export default {
                     clientName: this.clientName,
                     workoutId: clientWorkoutId,
                     clientWorkoutName: clientWorkoutName,
-                    clientWorkoutDate: clientWorkoutDate
+                    clientWorkoutDate: clientWorkoutDate,
+                    backButtonText: 'Workouts'
                 }
             })
         },
@@ -167,7 +184,8 @@ export default {
             this.$router.push({
                 name: 'CreateWorkout',
                 params: {
-                    clientName: this.clientName
+                    clientName: this.clientName,
+                    backButtonText: 'Workouts',
                 }
             })
         },
@@ -180,7 +198,8 @@ export default {
                 params: {
                     clientName: this.clientName,
                     clientWorkoutId: clientWorkoutId,
-                    clientWorkoutDate: clientWorkoutDate
+                    clientWorkoutDate: clientWorkoutDate,
+                    backButtonText: 'Workouts'
                 }
             })
         },
