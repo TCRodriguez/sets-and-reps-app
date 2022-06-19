@@ -226,7 +226,7 @@ export default {
         goToEditLogScreen(workoutId, logId, sets, reps, weight) {
             // alert('test')
             // console.log(this.$refs.logsList)
-            this.$refs.logsList.closeSlidingItems();
+            this.$refs.logsList.$el.closeSlidingItems();
             this.$router.push({
                 name: 'EditLog',
                 params: {
