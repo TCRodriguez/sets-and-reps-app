@@ -24,10 +24,41 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+// import { useField, Form, Field, ErrorMessage, defineRule } from 'vee-validate';
+import { defineRule, configure, Field, Form, ErrorMessage } from 'vee-validate';
+import { required, email } from '@vee-validate/rules';
+
+import { localize } from '@vee-validate/i18n';
+
+defineRule('required', required);
+defineRule('email', email);
+
+// configure({
+//   generateMessage: context => {
+//     return `The field ${context.field} is required.`;
+//   },
+// })
+
+configure({
+  generateMessage: localize({
+    en: {
+      messages: {
+        required: 'This field is required.',
+      }
+    }
+  })
+})
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(store);
+
+app
+  .component('Field', Field)
+  .component('Form', Form)
+  .component('ErrorMessage', ErrorMessage);
+
   
 router.isReady().then(() => {
   app.mount('#app');
