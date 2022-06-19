@@ -12,7 +12,7 @@
                         <h1>Edit Log</h1>
                     </ion-text>
                 </ion-row>
-                <ion-row>
+                <!-- <ion-row>
                     <ion-input placeholder="Exercise Name" v-model="exerciseId"></ion-input>
                 </ion-row>
                 <ion-row>
@@ -23,21 +23,51 @@
                 </ion-row>
                 <ion-row>
                     <ion-input placeholder="Weight" v-model="weight"></ion-input>
-                </ion-row>
+                </ion-row> -->
+                <Form @submit="editLog" ref="form">
+                    <Field v-model="exerciseId" name="exerciseId" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" type="text" placeholder="Exercise" clear-input></ion-input>
+                    </Field>
+                    <ErrorMessage name="exerciseId"></ErrorMessage>
+
+                    <Field v-model="sets" name="sets" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" type="number" placeholder="Sets" clear-input></ion-input>
+                    </Field>
+                    <ErrorMessage name="sets"></ErrorMessage>
+
+                    <Field v-model="reps" name="reps" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" type="number" placeholder="Reps" clear-input></ion-input>
+                    </Field>
+                    <ErrorMessage name="reps"></ErrorMessage>
+
+                    <Field v-model="weight" name="weight" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" type="number" placeholder="Weight" clear-input></ion-input>
+                    </Field>
+                    <ErrorMessage name="weight"></ErrorMessage>
+
+
+                    <ion-button type="submit" expand="block">Submit</ion-button>
+                    <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                        <ion-fab-button @click="createLog()" type="submit">
+
+                            OK
+                        </ion-fab-button>
+                    </ion-fab>  -->
+                </Form>
             </ion-grid>
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button @click="editLog()">
+            <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed"> -->
+                <!-- <ion-fab-button @click="editLog()"> -->
                     <!-- <ion-icon name="checkmark-outline"></ion-icon> -->
-                    OK
+                    <!-- OK -->
                     <!-- <ion-icon name="checkbox-outline"></ion-icon> -->
                     <!-- <ion-icon name="checkbox"></ion-icon> -->
-                </ion-fab-button>
-            </ion-fab>
+                <!-- </ion-fab-button> -->
+            <!-- </ion-fab> -->
         </ion-content>
     </ion-page>
 </template>
 
-<script>
+<script lang="ts">
 import {
     IonPage,
     IonHeader,
@@ -52,6 +82,7 @@ import {
     IonFabButton,
     // IonIcon,
     IonInput,
+    IonButton,
 } from '@ionic/vue';
 
 import { checkmarkOutline } from "ionicons/icons";
@@ -80,12 +111,13 @@ export default {
         IonRow,
         // IonCol,
         IonText,
-        IonFab,
-        IonFabButton,
+        // IonFab,
+        // IonFabButton,
         // IonIcon,
         IonInput,
         // checkmarkOutline
-        // IonList
+        // IonList,
+        IonButton,
     },
     data() {
         return {
