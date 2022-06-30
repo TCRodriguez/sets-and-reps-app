@@ -98,6 +98,13 @@ ion-popover {
   --backdrop-opacity: 0.75;
 }
 
+span[role=alert] {
+  background-color: var(--ion-color-danger-shade);
+  padding: 3px;
+  /* margin: 5% 0; */
+  /* margin-bottom: 5%; */
+  /* color: red; */
+}
 
 
 @media (prefers-color-scheme: dark) {

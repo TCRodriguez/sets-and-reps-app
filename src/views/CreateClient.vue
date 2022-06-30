@@ -138,7 +138,8 @@ export default {
     ion-input {
         border: 1px solid #fcfcfc50;
         border-radius: 5px;
-        padding-inline-start: 2%;
+        --padding-start: 2%;
+        margin: 2% 0;
     }
 
     ion-fab-button {

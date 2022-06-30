@@ -3,6 +3,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{clientName}}</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -83,6 +88,8 @@ import {
     // IonIcon,
     IonInput,
     IonButton,
+    IonButtons,
+    IonBackButton,
 } from '@ionic/vue';
 
 import { checkmarkOutline } from "ionicons/icons";
@@ -94,6 +101,7 @@ export default {
         clientId: {type: String, required: true},
         workoutId: {type: String, required: true},
         logId: {type: String, required: true},
+        backButtonText: {type: String, required: true},
         // exerciseId: {type: String, required: true},
         // clientWorkoutName: {type: String, required: true},
         // clientWorkoutDate: {type: String, required: true}
@@ -118,6 +126,8 @@ export default {
         // checkmarkOutline
         // IonList,
         IonButton,
+        IonButtons,
+        IonBackButton,
     },
     data() {
         return {
@@ -194,7 +204,8 @@ export default {
     ion-input {
         border: 1px solid #fcfcfc50;
         border-radius: 5px;
-        padding-inline-start: 2%;
+        --padding-start: 2%;
+        margin: 2% 0;
     }
 
     /* ion-icon {

@@ -37,24 +37,37 @@
                                 ></ion-toast>
                             </div>
                             <div class="container">
-                                <ion-item>
+                                <!-- <ion-item>
                                     <ion-input placeholder="Email" v-model="email"></ion-input>
                                 </ion-item>
                                 <ion-item>
                                     <ion-input placeholder="Password" v-model="password"></ion-input>
-                                </ion-item>
+                                </ion-item> -->
+                                <Form @submit="login">
+                                    <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
+                                       <ion-input v-bind="field" type="email" placeholder="Email" clear-input></ion-input> 
+                                    </Field>
+                                    <ErrorMessage name="email"></ErrorMessage>
+                                    <Field v-model="password" name="password" v-slot="{ field }" rules="required">
+                                       <ion-input v-bind="field" type="password" placeholder="Password" clear-input></ion-input> 
+                                    </Field>
+                                    <ErrorMessage name="password"></ErrorMessage>
+                                    <ion-button type="Submit" expand="block">
+                                        Login
+                                    </ion-button>
+                                </Form>
                             </div>
                         </ion-col>
                     </ion-row>
-                    <ion-row class="ion-justify-content-center">
+                    <!-- <ion-row class="ion-justify-content-center">
                         <ion-col size="3">
                             <div>
-                                <ion-button @click="login()">
+                                <ion-button type="Submit">
                                     Login
                                 </ion-button>
                             </div>
                         </ion-col>
-                    </ion-row>
+                    </ion-row> -->
                 <!-- </ion-row> -->
                 
             </ion-grid>
@@ -66,7 +79,7 @@ import {
     IonGrid, 
     IonRow, 
     IonCol, 
-    IonItem, 
+    // IonItem, 
     IonToast,
     IonInput,
     IonButton,
@@ -80,7 +93,7 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
-        IonItem,
+        // IonItem,
         IonToast,
         IonInput,
         IonButton,

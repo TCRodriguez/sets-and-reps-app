@@ -219,7 +219,8 @@ export default {
                 params: {
                     clientId: this.clientId,
                     workoutId: this.workoutId,
-                    clientName: this.clientName
+                    clientName: this.clientName,
+                    backButtonText: 'Workout'
                 }
             })
         },
@@ -236,7 +237,8 @@ export default {
                     logId: logId,
                     sets: sets,
                     reps: reps,
-                    weight: weight
+                    weight: weight,
+                    backButtonText: 'Workout'
 
                 }
             })

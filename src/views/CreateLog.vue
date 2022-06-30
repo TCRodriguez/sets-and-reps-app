@@ -4,6 +4,11 @@
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{clientName}}</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button
+                        :text="backButtonText"
+                    ></ion-back-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
@@ -48,7 +53,8 @@
                     <Field v-model="weight" name="weight" v-slot="{ field }" rules="required">
                         <ion-input v-bind="field" type="number" placeholder="Weight" clear-input></ion-input>
                     </Field>
-                    <ErrorMessage name="weight"></ErrorMessage>
+                        <ErrorMessage name="weight"></ErrorMessage>
+
 
 
                     <ion-button type="submit" expand="block">Submit</ion-button>
@@ -97,7 +103,10 @@ import {
     IonFab,
     IonFabButton,
     // IonIcon,
-    IonInput
+    IonInput,
+    IonButtons,
+    IonBackButton,
+    // IonItem
 } from '@ionic/vue';
 
 import { checkmarkOutline, cloudyNight } from "ionicons/icons";
@@ -126,7 +135,8 @@ export default defineComponent(  {
         clientId: {type: String, required: true},
         workoutId: {type: String, required: true},
         clientWorkoutName: {type: String, required: true},
-        clientWorkoutDate: {type: String, required: true}
+        clientWorkoutDate: {type: String, required: true},
+        backButtonText: {type: String, required: true},
     },
     components: { 
         IonPage,
@@ -142,11 +152,14 @@ export default defineComponent(  {
         // IonFabButton,
         // IonIcon,
         IonInput,
+        IonButtons,
+        IonBackButton,
         // checkmarkOutline
         // IonList
         // Form,
         // Field,
         // ErrorMessage,
+        // IonItem
     },
     // data() {
     //     return {
@@ -247,7 +260,8 @@ export default defineComponent(  {
     ion-input {
         border: 1px solid #fcfcfc50;
         border-radius: 5px;
-        padding-inline-start: 2%;
+        --padding-start: 2%;
+        margin: 2% 0;
     }
 
     /* ion-icon {
