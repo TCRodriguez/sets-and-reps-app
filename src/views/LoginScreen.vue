@@ -74,7 +74,7 @@
         </ion-content>
 </template>
 
-<script>
+<script lang="ts">
 import { 
     IonGrid, 
     IonRow, 

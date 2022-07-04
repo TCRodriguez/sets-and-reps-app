@@ -13,7 +13,7 @@
         <ion-content :fullscreen="true">
 
             <ion-grid>
-                <ion-row>
+                <!-- <ion-row>
                     <ion-input placeholder="First Name" v-model="first_name"></ion-input>
                 </ion-row>
                 <ion-row>
@@ -27,14 +27,37 @@
                 </ion-row>
                 <ion-row>
                     <ion-input placeholder="Phone Number" v-model="phone_number"></ion-input>
-                </ion-row>
+                </ion-row> -->
+                <Form @submit="createClient">
+                    <Field v-model="first_name" name="first_name" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" placeholder="First Name" type="text" clear-input></ion-input>  
+                    </Field>
+                    <ErrorMessage name="first_name"></ErrorMessage>
+                    <Field v-model="last_name" name="last_name" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" placeholder="Last Name" type="text" clear-input></ion-input>  
+                    </Field>
+                    <ErrorMessage name="last_name"></ErrorMessage>
+                    <Field v-model="starting_weight" name="starting_weight" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" placeholder="Starting Weight" type="text" clear-input></ion-input>  
+                    </Field>
+                    <ErrorMessage name="starting_weight"></ErrorMessage>
+                    <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
+                        <ion-input v-bind="field" placeholder="Email" type="email" clear-input></ion-input>  
+                    </Field>
+                    <ErrorMessage name="email"></ErrorMessage>
+                    <Field v-model="phone_number" name="phone_number" v-slot="{ field }" rules="required">
+                        <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
+                    </Field>
+                    <ErrorMessage name="phone_number"></ErrorMessage>
+                    <ion-button type="submit" expand="block">Submit</ion-button>
+                </Form>
             </ion-grid>
 
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="createClient()">
                     OK
                 </ion-fab-button>
-            </ion-fab>
+            </ion-fab> -->
         </ion-content>
     </ion-page>
 </template>
@@ -47,12 +70,12 @@ import {
     IonTitle,
     IonContent,
     IonGrid,
-    IonRow,
+    // IonRow,
     // IonCol,
     // IonItem,
     IonInput,
-    IonFab,
-    IonFabButton,
+    // IonFab,
+    // IonFabButton,
     IonButtons,
     IonBackButton,
     // IonButton,
@@ -74,12 +97,12 @@ export default {
         IonTitle,
         IonContent,
         IonGrid,
-        IonRow,
+        // IonRow,
         // IonCol,
         // IonItem,
         IonInput,
-        IonFab,
-        IonFabButton,
+        // IonFab,
+        // IonFabButton,
         IonButtons,
         IonBackButton,
         // IonButton,
