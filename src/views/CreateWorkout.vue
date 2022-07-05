@@ -97,11 +97,18 @@ export default {
     },
     methods: {
         createWorkout() {
-            console.log(this.clientWorkoutDate.substring(0, 10));
+            // console.log(this.clientWorkoutDate.substring(0, 10));
+            // console.log(this.clientWorkoutDate);
+            let today = new Date().toJSON().substring(0, 10);
+            // let selectedDate = this.clientWorkoutDate === null ? today : this.clientWorkoutDate.substring(0, 10);
             const data = {
                 clientId: this.clientId,
-                clientWorkoutDate: this.clientWorkoutDate.substring(0, 10),
+                clientWorkoutDate: this.clientWorkoutDate === null ? today : this.clientWorkoutDate.substring(0, 10)
             }
+
+            console.log(data)
+            // const test = this.clientWorkoutDate === null ? "It's null." : new Date();
+            // console.log(test)
             this.$store.dispatch('clientWorkouts/createClientWorkout', data)
             .then(() => {
                 this.$router.replace({

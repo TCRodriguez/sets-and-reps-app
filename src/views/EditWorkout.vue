@@ -16,7 +16,7 @@
                     <ion-text>
                         <h1>Edit Workout Date</h1>
                     </ion-text>
-                    <ion-datetime presentation="date" v-model="clientWorkoutDate"></ion-datetime>
+                    <ion-datetime presentation="date" v-model="newClientWorkoutDate"></ion-datetime>
                 </ion-row>
                 <!-- <ion-row>
                     <ion-input placeholder="Date" v-model="clientWorkoutDate"></ion-input>
@@ -63,7 +63,7 @@ export default {
         // clientWorkoutName: {type: String, required: true},
         clientWorkoutId: {type: String, required: true},
         backButtonText: {type: String, required: true},
-        // clientWorkoutDate: {type: String, required: true}
+        clientWorkoutDate: {type: String, required: true}
     },
     components: { 
         IonPage,
@@ -87,28 +87,30 @@ export default {
     },
     data() {
         return {
-            clientWorkoutDate: null,
+            newClientWorkoutDate: null,
         }
     },
     mounted() {
         // this.$store.dispatch('clientWorkouts/createClientWorkout', this.clientWorkoutDate)
+        this.newClientWorkoutDate = this.clientWorkoutDate;
     },
     methods: {
         editWorkout() {
+            // console.log(this.clientWorkoutDate)
 
             const data = {
                 clientId: this.clientId,
                 clientWorkoutDate: this.clientWorkoutDate.substring(0, 10),
                 clientWorkoutId: this.clientWorkoutId
             }
-            // console.log(this.clientWorkoutDate)
-            this.$store.dispatch('clientWorkouts/editClientWorkout', data)
-            .then(() => {
-                console.log('Do we get here?')
-                this.$router.replace({
-                    name: 'ClientWorkouts'
-                })
-            })
+            console.log(data)
+            // this.$store.dispatch('clientWorkouts/editClientWorkout', data)
+            // .then(() => {
+            //     console.log('Do we get here?')
+            //     this.$router.replace({
+            //         name: 'ClientWorkouts'
+            //     })
+            // })
         }
     }
 }
