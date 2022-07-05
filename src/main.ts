@@ -28,12 +28,13 @@ import './theme/variables.css';
 
 // import { useField, Form, Field, ErrorMessage, defineRule } from 'vee-validate';
 import { defineRule, configure, Field, Form, ErrorMessage } from 'vee-validate';
-import { required, email } from '@vee-validate/rules';
+import { required, email, regex} from '@vee-validate/rules';
 
 import { localize } from '@vee-validate/i18n';
 
 defineRule('required', required);
 defineRule('email', email);
+defineRule('regex', regex);
 
 // configure({
 //   generateMessage: context => {
