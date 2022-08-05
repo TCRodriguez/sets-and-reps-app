@@ -17,7 +17,23 @@ export default {
                     }
                 }) 
                 .then(response => {
-                    commit('UPDATE_WORKOUTS', response.data.data)
+
+                    // ? Perhaps we loop through the array of workout objects and add a new "Day" property to hold the day of the week?
+                    // ? As in, "Sunday", "Monday", "Tuesday", etc.
+
+                    const workoutsTemp = [...response.data.data];
+                    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+                    workoutsTemp.forEach(el => {
+                        const dayTemp = new Date(el.date)
+                        // console.log(el, weekday[day.getDay()]);
+                        console.log(el.name)
+                        el.day = weekday[dayTemp.getDay()] 
+                    });
+
+                    console.log(workoutsTemp)
+
+                    commit('UPDATE_WORKOUTS', workoutsTemp)
                     // this.clientWorkouts = response.data.data;
                     console.log("We got the workouts!")
                     // console.log(response.data.data)

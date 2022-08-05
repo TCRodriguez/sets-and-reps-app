@@ -23,7 +23,10 @@
                     </ion-item-options>
 
                     <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))">
-                        <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
+                        <div class="workout-div">
+                            <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
+                            <span class="workout-day">{{ clientWorkout.day }}</span>
+                        </div>
                     </ion-item>
 
                     <ion-item-options side="end">
@@ -235,5 +238,15 @@ export default {
 
     ion-item {
         justify-content: space-between;
+    }
+
+    .workout-div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .workout-day {
+        font-size: small;
+        color: gray;
     }
 </style>
