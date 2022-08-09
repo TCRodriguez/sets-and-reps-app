@@ -17,18 +17,12 @@ export default {
                     }
                 }) 
                 .then(response => {
-
-                    // ? Perhaps we loop through the array of workout objects and add a new "Day" property to hold the day of the week?
-                    // ? As in, "Sunday", "Monday", "Tuesday", etc.
-
                     const workoutsTemp = [...response.data.data];
                     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
                     workoutsTemp.forEach(el => {
                         const dayTemp = new Date(el.date)
-                        // console.log(el, weekday[day.getDay()]);
-                        console.log(el.name)
-                        el.day = weekday[dayTemp.getDay()] 
+                        el.day = weekday[dayTemp.getUTCDay()] 
                     });
 
                     console.log(workoutsTemp)
@@ -51,7 +45,7 @@ export default {
             return new Promise((resolve, reject) => {
                 fittyApiClient.post(`clients/${payload.clientId}/workouts`, {
                     client_id: payload.clientId,
-                    name: payload.clientWorkoutDate
+                    date: payload.clientWorkoutDate
                     },
                     { headers: {
                         'Authorization': rootState.login.token
@@ -72,7 +66,7 @@ export default {
                 fittyApiClient.put(`clients/${payload.clientId}/workouts/${payload.clientWorkoutId}`, {
                     client_id: payload.clientId,
                     workout_id: payload.clientWorkoutId,
-                    name: payload.clientWorkoutDate
+                    date: payload.clientWorkoutDate
                     },
                     { headers: {
                         'Authorization': rootState.login.token

@@ -22,16 +22,16 @@
                         <ion-item-option color="danger" @click="openDeleteWorkoutPopover(clientWorkout.id)">Delete</ion-item-option>
                     </ion-item-options>
 
-                    <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date.substring(0, 10))">
+                    <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date)">
                         <div class="workout-div">
-                            <ion-label>{{ clientWorkout.name ? clientWorkout.name : clientWorkout.date.substring(0, 10) }}</ion-label>
+                            <ion-label>{{ clientWorkout.date ? clientWorkout.date : clientWorkout.date }}</ion-label>
                             <span class="workout-day">{{ clientWorkout.day }}</span>
                         </div>
                     </ion-item>
 
                     <ion-item-options side="end">
                         <ion-item-option 
-                        @click="goToEditWorkoutScreen(clientWorkout.id, clientWorkout.date.substring(0, 10))"
+                        @click="goToEditWorkoutScreen(clientWorkout.id, clientWorkout.date)"
                         >Edit</ion-item-option>
                     </ion-item-options>
 

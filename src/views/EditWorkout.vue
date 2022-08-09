@@ -96,21 +96,21 @@ export default {
     },
     methods: {
         editWorkout() {
-            // console.log(this.clientWorkoutDate)
+            console.log(this.newClientWorkoutDate)
 
             const data = {
                 clientId: this.clientId,
-                clientWorkoutDate: this.clientWorkoutDate.substring(0, 10),
+                clientWorkoutDate: this.newClientWorkoutDate,
                 clientWorkoutId: this.clientWorkoutId
             }
             console.log(data)
-            // this.$store.dispatch('clientWorkouts/editClientWorkout', data)
-            // .then(() => {
-            //     console.log('Do we get here?')
-            //     this.$router.replace({
-            //         name: 'ClientWorkouts'
-            //     })
-            // })
+            this.$store.dispatch('clientWorkouts/editClientWorkout', data)
+            .then(() => {
+                console.log('Do we get here?')
+                this.$router.replace({
+                    name: 'ClientWorkouts'
+                })
+            })
         }
     }
 }
