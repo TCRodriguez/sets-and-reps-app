@@ -200,7 +200,27 @@ export default {
             })
         }
     },
+    getters: {
+        getWorkoutsDesc(state) {
+            // Turns each date string (yyyy-mm-dd) into an actual Date object to get sorted
+            const tempWorkoutsArray = [...state.workouts].map(object => {
+                return {...object, date: new Date(object.date)};
+            });
 
+            // Sorts the workouts objects by the 'date' property descending
+            const sortedWorkoutsDesc = tempWorkoutsArray.sort(
+                (objA, objB) => Number(objB.date) - Number(objA.date),
+            );
+
+            // Converts the 'date' property back to the original yyyy-mm-dd string
+            sortedWorkoutsDesc.forEach(workout => {
+                console.log(workout.date);
+                workout.date = workout.date.toISOString().split('T')[0];
+            })
+
+            return sortedWorkoutsDesc;
+        }
+    },
     mutations: {
         UPDATE_WORKOUTS(state, workouts) {
             state.workouts = workouts

@@ -98,7 +98,7 @@ import {
     IonBackButton,
 } from '@ionic/vue';
 
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import { ref } from 'vue';
 // import OptionsButton from '@/components/OptionsButton.vue'
@@ -148,8 +148,11 @@ export default {
         }
     },
     computed: {
-        ...mapState('clientWorkouts', {
-            clientWorkouts: state => state.workouts
+        // ...mapState('clientWorkouts', {
+        //     clientWorkouts: state => state.workouts
+        // }),
+        ...mapGetters('clientWorkouts', {
+            clientWorkouts: 'getWorkoutsDesc'
         })
     },
     mounted() {
@@ -158,7 +161,8 @@ export default {
 
         this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
         .then(() => {
-            console.log(this.clientWorkouts)
+            // console.log(this.clientWorkouts)
+            console.log(this.$store.getters['clientWorkouts/getWorkoutsDesc'])
         })
 
     },
