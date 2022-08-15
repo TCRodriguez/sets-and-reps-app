@@ -214,7 +214,6 @@ export default {
 
             // Converts the 'date' property back to the original yyyy-mm-dd string
             sortedWorkoutsDesc.forEach(workout => {
-                console.log(workout.date);
                 workout.date = workout.date.toISOString().split('T')[0];
             })
 
