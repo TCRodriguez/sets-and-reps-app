@@ -109,7 +109,7 @@ export default {
     },
     mounted() {
         // alert("Did this mount happen?")
-        this.$store.dispatch('trainerExercises/updateExercises')
+        // this.$store.dispatch('trainerExercises/updateExercises')
     },
     methods: {
         goToCreateExerciseScreen() {

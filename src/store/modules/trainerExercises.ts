@@ -88,6 +88,12 @@ export default {
         }
     },
 
+    getters: {
+        getExercises(state) {
+            return state.exercises;
+        }
+    },
+
     mutations: {
         UPDATE_EXERCISES(state, exercises) {
             state.exercises = exercises

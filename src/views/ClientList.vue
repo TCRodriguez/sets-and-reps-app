@@ -148,6 +148,9 @@ export default {
     },
     mounted() {
         this.$store.dispatch('clients/updateClientList')
+        .then(() => {
+            this.$store.dispatch('trainerExercises/updateExercises')
+        })
     },
     methods: {
         goToCreateClientScreen() {
