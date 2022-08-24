@@ -30,8 +30,13 @@
                     <ion-input placeholder="Weight" v-model="weight"></ion-input>
                 </ion-row> -->
                 <Form @submit="editLog" ref="form">
-                    <Field v-model="exerciseId" name="exerciseId" v-slot="{ field }" rules="required">
-                        <ion-input v-bind="field" type="text" placeholder="Exercise" clear-input></ion-input>
+                    <Field name="exerciseId" v-slot="{ field }" rules="required">
+                        <!-- <ion-input v-bind="field" type="text" placeholder="Exercise" clear-input></ion-input> -->
+                        <ion-searchbar v-model="exerciseQuery" placeholder="Search Exercises" ref="searchbar" @input="handleSearchbarChange($event.target.value)"></ion-searchbar>
+                        <ion-list ref="exerciseList">
+                            <ion-item v-for="exercise in exercises" @click="setExercise(exercise.id, exercise.exercise_name)">{{ exercise.exercise_name}}</ion-item>
+                        </ion-list>
+                        <ion-input id="exercise-name-field" v-bind="field" type="text" v-model="exerciseName" readonly></ion-input>
                     </Field>
                     <ErrorMessage name="exerciseId"></ErrorMessage>
 
@@ -90,7 +95,12 @@ import {
     IonButton,
     IonButtons,
     IonBackButton,
+    IonList,
+    IonItem,
+    IonSearchbar,
 } from '@ionic/vue';
+
+import { mapGetters } from 'vuex';
 
 import { checkmarkOutline } from "ionicons/icons";
 
@@ -128,9 +138,19 @@ export default {
         IonButton,
         IonButtons,
         IonBackButton,
+        IonList,
+        IonItem,
+        IonSearchbar,
+    },
+    computed: {
+        ...mapGetters({
+            exercises: 'trainerExercises/getExercises'
+        })
     },
     data() {
         return {
+            exerciseQuery: null,
+            exerciseName: null,
             exerciseId: null,
             sets: null,
             reps: null,
@@ -140,6 +160,7 @@ export default {
         }
     },
     mounted() {
+        this.$refs.exerciseList.$el.style.display = 'none';
         const ids = {
             clientWorkoutId: this.workoutId,
             clientWorkoutExerciseLogId: this.logId
@@ -172,6 +193,7 @@ export default {
                 workoutId: this.workoutId,
                 logId: this.logId,
                 exerciseId: this.exerciseId,
+                exerciseName: this.exerciseName,
                 sets: this.sets,
                 reps: this.reps,
                 weight: this.weight,
@@ -187,6 +209,37 @@ export default {
             });
 
         },
+        handleSearchbarChange(query) {
+            // console.log(exerciseName)
+            this.$refs.exerciseList.$el.style.display = 'block';
+            if(!query) {
+               this.$refs.exerciseList.$el.style.display = 'none'; 
+            }
+            console.log(query)
+            // console.log(Array.from(this.$refs.exerciseList.children))
+            // console.log(Array.from(this.$refs.exerciseList.$el.children))
+            // this.$refs.exerciseList.$el.children.forEach(el => {
+            //     console.log(el)
+            // })
+            for (let index = 0; index < this.$refs.exerciseList.$el.children.length; index++) {
+                const element = this.$refs.exerciseList.$el.children[index];
+                // console.log(element.textContent)
+                const shouldShow = element.textContent.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                element.style.display = shouldShow ? 'block' : 'none';
+                
+            }
+        },
+        setExercise(id, name) {
+            // console.log(name)
+            // this.$refs.searchbar.value = exercise;
+            this.exerciseId = id;
+            this.exerciseName = name;
+            // console.log("exerciseId.value is: " + exerciseId.value)
+            // console.log("this.exerciseId is: " + this.exerciseId)
+            console.log(this.exerciseQuery)
+            this.exerciseQuery = '';
+            this.$refs.exerciseList.$el.style.display = 'none'; 
+        }
     }
 }
 </script>
@@ -206,6 +259,11 @@ export default {
         border-radius: 5px;
         --padding-start: 2%;
         margin: 2% 0;
+    }
+
+    #exercise-name-field {
+        border: none;
+        font-size: 2rem;
     }
 
     /* ion-icon {

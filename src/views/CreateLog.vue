@@ -280,7 +280,6 @@ export default defineComponent(  {
             console.log(exerciseQuery.value)
             exerciseQuery.value = '';
             this.$refs.exerciseList.$el.style.display = 'none'; 
-
         }
         return {
             exerciseQuery,
@@ -329,7 +328,9 @@ export default defineComponent(  {
 
     #exercise-name-field {
         border: none;
+        font-size: 2rem;
     }
+
 
     /* ion-icon {
         color: white;

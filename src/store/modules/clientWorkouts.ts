@@ -74,6 +74,7 @@ export default {
                 })
                 .then(response => {
                     console.log(response)
+                    console.log("Exercise log updated.")
                     dispatch('updateWorkouts', payload.clientId)
                     resolve(response)
                 })
@@ -149,10 +150,13 @@ export default {
         editClientWorkoutExerciseLog({state, rootState, dispatch}, payload) {
             const clientId = state.workouts.find(clientWorkout => clientWorkout.id == payload.workoutId).client_id
 
+            console.log(payload)
+
             return new Promise((resolve, reject) => {
                 fittyApiClient.put(`clients/${clientId}/workouts/${payload.workoutId}/exercise-logs/${payload.logId}`, {
                     workout_id: payload.workoutId,
                     exercise_id: payload.exerciseId,
+                    exercise_name: payload.exerciseName,
                     sets: payload.sets,
                     reps: payload.reps,
                     weight: payload.weight,
@@ -165,6 +169,7 @@ export default {
                 })
                 .then(response => {
                     // console.log(response)
+                    console.log("Exercise log updated.")
                     console.log(state.logs)
                     dispatch('updateWorkouts', clientId)
                     .then(() => {

@@ -58,6 +58,7 @@ export default {
                     },
                 })
                 .then(response => {
+                    console.log('Exercise updated.')
                     console.log(response)
                     dispatch('updateExercises')
                     resolve(response)
