@@ -75,7 +75,7 @@
 
                     <ion-item-options side="end">
                         <ion-item-option 
-                        @click="goToEditLogScreen(log.workout_id, log.id, log.sets, log.reps, log.weight)"
+                        @click="goToEditLogScreen(log.workout_id, log.id, log.exercise_name, log.sets, log.reps, log.weight)"
                         >Edit</ion-item-option>
                     </ion-item-options>
                 <!-- <ion-popover :is-open="isOpenRef" reference="trigger" side="right" showBackdrop="true" @didDismiss="closeDeleteLogPopover()">
@@ -193,6 +193,10 @@ export default {
     },
     mounted() {
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
+        .then(response => {
+            console.log("Here's the response: ")
+            console.log(response)
+        })
     },
     setup(props) {
             const ionRouter = useIonRouter();
@@ -224,10 +228,11 @@ export default {
                 }
             })
         },
-        goToEditLogScreen(workoutId, logId, sets, reps, weight) {
+        goToEditLogScreen(workoutId, logId, exerciseName, sets, reps, weight) {
             // alert('test')
             // console.log(this.$refs.logsList)
             this.$refs.logsList.$el.closeSlidingItems();
+            console.log(exerciseName);
             this.$router.push({
                 name: 'EditLog',
                 params: {
@@ -235,6 +240,7 @@ export default {
                     clientName: this.clientName,
                     clientId: this.clientId,
                     logId: logId,
+                    previousExerciseName: exerciseName,
                     sets: sets,
                     reps: reps,
                     weight: weight,

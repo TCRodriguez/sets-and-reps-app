@@ -34,7 +34,7 @@
                         <!-- <ion-input v-bind="field" type="text" placeholder="Exercise" clear-input></ion-input> -->
                         <ion-searchbar v-model="exerciseQuery" placeholder="Search Exercises" ref="searchbar" @input="handleSearchbarChange($event.target.value)"></ion-searchbar>
                         <ion-list ref="exerciseList">
-                            <ion-item v-for="exercise in exercises" @click="setExercise(exercise.id, exercise.exercise_name)">{{ exercise.exercise_name}}</ion-item>
+                            <ion-item v-for="exercise in exercises" v-bind:key="exercise.id" @click="setExercise(exercise.id, exercise.exercise_name)">{{ exercise.exercise_name}}</ion-item>
                         </ion-list>
                         <ion-input id="exercise-name-field" v-bind="field" type="text" v-model="exerciseName" readonly></ion-input>
                     </Field>
@@ -111,6 +111,7 @@ export default {
         clientId: {type: String, required: true},
         workoutId: {type: String, required: true},
         logId: {type: String, required: true},
+        previousExerciseName: {type: String, required: true},
         backButtonText: {type: String, required: true},
         // exerciseId: {type: String, required: true},
         // clientWorkoutName: {type: String, required: true},
@@ -151,7 +152,7 @@ export default {
         return {
             exerciseQuery: null,
             exerciseName: null,
-            exerciseId: null,
+            // exerciseId: null,
             sets: null,
             reps: null,
             weight: null,
@@ -160,6 +161,8 @@ export default {
         }
     },
     mounted() {
+        console.log("This is the exercise name: " + this.previousExerciseName)
+        this.exerciseName = this.previousExerciseName;
         this.$refs.exerciseList.$el.style.display = 'none';
         const ids = {
             clientWorkoutId: this.workoutId,
@@ -168,6 +171,8 @@ export default {
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLog', ids)
         .then(response => {
             this.exerciseId = response.exercise_id
+            console.log(response.exercise_id)
+            console.log(response.exercise_name)
             this.sets = response.sets
             this.reps = response.reps
             this.weight = response.weight
