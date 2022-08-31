@@ -41,17 +41,17 @@
                     </Field>
                     <ErrorMessage name="last_name"></ErrorMessage>
 
-                    <Field v-model="newStartingWeight" name="starting_weight" v-slot="{ field }" rules="required">
+                    <Field v-model="newStartingWeight" name="starting_weight" v-slot="{ field }" rules="max:3|min:2">
                         <ion-input v-bind="field" placeholder="Starting Weight" type="text" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="starting_weight"></ErrorMessage>
 
-                    <Field v-model="newEmail" name="email" v-slot="{ field }" rules="required|email">
+                    <Field v-model="newEmail" name="email" v-slot="{ field }" rules="email">
                         <ion-input v-bind="field" placeholder="Email" type="email" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
 
-                    <Field v-model="newPhoneNumber" name="phone_number" v-slot="{ field }" rules="required">
+                    <Field v-model="newPhoneNumber" name="phone_number" v-slot="{ field }">
                         <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="phone_number"></ErrorMessage>

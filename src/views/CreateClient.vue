@@ -39,12 +39,12 @@
                     </Field>
                     <ErrorMessage name="last_name"></ErrorMessage>
 
-                    <Field v-model="starting_weight" name="starting_weight" v-slot="{ field }" rules="required">
+                    <Field v-model="starting_weight" name="starting_weight" v-slot="{ field }" rules="max:3|min:2">
                         <ion-input v-bind="field" placeholder="Starting Weight" type="number" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="starting_weight"></ErrorMessage>
                     
-                    <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
+                    <Field v-model="email" name="email" v-slot="{ field }" rules="email">
                         <ion-input v-bind="field" placeholder="Email" type="email" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
