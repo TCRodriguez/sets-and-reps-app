@@ -192,11 +192,8 @@ export default {
         })
     },
     mounted() {
+        console.log("mounted() hit in ClientWorkout.vue")
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLogs', this.workoutId)
-        .then(response => {
-            console.log("Here's the response: ")
-            console.log(response)
-        })
     },
     setup(props) {
             const ionRouter = useIonRouter();

@@ -151,6 +151,7 @@ export default {
     data() {
         return {
             exerciseQuery: null,
+            exerciseId: null,
             exerciseName: null,
             // exerciseId: null,
             sets: null,
@@ -162,7 +163,7 @@ export default {
     },
     mounted() {
         console.log("This is the exercise name: " + this.previousExerciseName)
-        this.exerciseName = this.previousExerciseName;
+        // this.exerciseName = this.previousExerciseName;
         this.$refs.exerciseList.$el.style.display = 'none';
         const ids = {
             clientWorkoutId: this.workoutId,
@@ -170,9 +171,10 @@ export default {
         }
         this.$store.dispatch('clientWorkouts/getClientWorkoutExerciseLog', ids)
         .then(response => {
+            console.log("Here's the reponse from the EditLog mounted()")
+            console.log(response)
             this.exerciseId = response.exercise_id
-            console.log(response.exercise_id)
-            console.log(response.exercise_name)
+            this.exerciseName = response.exercise_name
             this.sets = response.sets
             this.reps = response.reps
             this.weight = response.weight

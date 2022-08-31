@@ -83,6 +83,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'EditLog',
         component: () => import('@/views/EditLog.vue'),
         props: true,
+        beforeEnter: (to, from) => {
+          console.log("before enter - to")
+          console.log(to.params)
+          console.log("before enter - from") 
+          console.log(from.params)
+        }
       },
       {
         path: 'exercises',
