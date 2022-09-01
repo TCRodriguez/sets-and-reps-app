@@ -25,9 +25,9 @@ export default {
                             name: client.first_name + ' ' + client.last_name,
                             first_name: client.first_name,
                             last_name: client.last_name,
-                            starting_weight: payload.starting_weight,
-                            email: payload.email,
-                            phone_number: payload.phone_number,
+                            starting_weight: client.starting_weight,
+                            email: client.email,
+                            phone_number: client.phone_number,
                         }
                     })
                     commit('updateClientList', clients)
