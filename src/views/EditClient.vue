@@ -51,7 +51,7 @@
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
 
-                    <Field v-model="newPhoneNumber" name="phone_number" v-slot="{ field }">
+                    <Field v-model="newPhoneNumber" name="phone_number" v-slot="{ field }" :rules="{ regex:/^[2-9]\d{2}[2-9]\d{2}\d{4}$/ }">
                         <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="phone_number"></ErrorMessage>

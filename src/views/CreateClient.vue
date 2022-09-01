@@ -48,12 +48,12 @@
                         <ion-input v-bind="field" placeholder="Email" type="email" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
-                    <!-- <Field v-model="phone_number" name="phone_number" v-slot="{ field }" :rules="{ regex:/^[2-9]\d{2}[2-9]\d{2}\d{4}$/ }">
-                        <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
-                    </Field> -->
-                    <Field v-model="phone_number" name="phone_number" v-slot="{ field }">
+                    <Field v-model="phone_number" name="phone_number" v-slot="{ field }" :rules="{ regex:/^[2-9]\d{2}[2-9]\d{2}\d{4}$/ }">
                         <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
                     </Field>
+                    <!-- <Field v-model="phone_number" name="phone_number" v-slot="{ field }">
+                        <ion-input v-bind="field" placeholder="Phone Number" type="text" clear-input></ion-input>  
+                    </Field> -->
                     <ErrorMessage name="phone_number"></ErrorMessage>
                     <ion-button type="submit" expand="block">Submit</ion-button>
                 </Form>
