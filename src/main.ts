@@ -49,6 +49,7 @@ configure({
     en: {
       messages: {
         required: 'This field is required.',
+        regex: 'Must be a valid 10-digit phone number.'
       }
     }
   })
