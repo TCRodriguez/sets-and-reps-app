@@ -38,6 +38,7 @@ defineRule('regex', regex);
 defineRule('max', max);
 defineRule('min', min);
 
+
 // configure({
 //   generateMessage: context => {
 //     return `The field ${context.field} is required.`;

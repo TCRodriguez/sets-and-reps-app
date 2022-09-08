@@ -244,6 +244,10 @@ export default {
         width: 15%;
     }
 
+    ion-list {
+        margin-bottom: 20%;
+    }
+
     .options-button {
         width: 75%;
         height: auto;

@@ -162,4 +162,8 @@ export default {
         width: 75%;
         height: auto;
     }
+
+    ion-list {
+        margin-bottom: 20%;
+    }
 </style>

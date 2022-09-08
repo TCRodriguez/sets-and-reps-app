@@ -20,6 +20,13 @@
                 <!-- <ion-row>
                     <ion-input placeholder="Exercise name..." v-model="exerciseName"></ion-input>
                 </ion-row> -->
+                <ion-toast
+                    :is-open="displayDuplicateExerciseError"
+                    message="An exercise with that name already exists!"
+                    :duration="1500"
+                    position="top"
+                    @didDismiss="setOpen(false)"
+                ></ion-toast>
                 <Form @submit="createExercise" ref="form">
                     <Field v-model="exerciseName" name="exerciseName" v-slot="{ field }" rules="required">
                         <ion-input v-bind="field" type="text" placeholder="Exercise" clear-input></ion-input>
@@ -57,6 +64,7 @@ import {
     IonInput,
     IonButtons,
     IonBackButton,
+    IonToast,
 } from '@ionic/vue';
 
 export default {
@@ -79,16 +87,19 @@ export default {
         IonInput,
         IonButtons,
         IonBackButton,
+        IonToast,
         // checkmarkOutline
         // IonList
     },
     data() {
         return {
             exerciseName: null,
+            displayDuplicateExerciseError: false
         }
     },
     mounted() {
         // this.$store.dispatch('trainerExercises/createExercise', this.exerciseName)
+        this.displayDuplicateExerciseError = false;
     },
     methods: {
         createExercise() {
@@ -102,6 +113,13 @@ export default {
                     name: 'ExerciseList'
                 })
             })
+            .catch(() => {
+                this.setOpen(true);
+                console.log("An exercise with that name already exists.")
+            })
+        },
+        setOpen(state: boolean) {
+            this.displayDuplicateExerciseError = state;
         }
     }
 }

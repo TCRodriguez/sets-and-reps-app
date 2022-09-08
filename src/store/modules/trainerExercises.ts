@@ -44,7 +44,9 @@ export default {
                 })
                 .catch(error => {
                     reject(error)
-                    console.log(error.response)
+                    console.log(error.response.data.message)
+                    console.log(error.response.data.message.includes('violation: 1062'));
+                    
                 })
             })
         },
