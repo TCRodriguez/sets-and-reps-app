@@ -199,7 +199,8 @@ export default {
             const ionRouter = useIonRouter();
             const goToWorkouts = () => {
                 console.log(props.clientId)
-                ionRouter.back(`/tabs/clients/${props.clientId}/workouts`)
+                // ionRouter.back(`/tabs/clients/${props.clientId}/workouts`)
+                ionRouter.navigate(`/tabs/clients/${props.clientId}/workouts`, 'back', 'push')
             };
 
             return { goToWorkouts }
