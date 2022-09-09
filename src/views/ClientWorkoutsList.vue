@@ -22,7 +22,7 @@
                         <ion-item-option color="danger" @click="openDeleteWorkoutPopover(clientWorkout.id)">Delete</ion-item-option>
                     </ion-item-options>
 
-                    <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date)">
+                    <ion-item @click="goToClientWorkout(clientWorkout.id, clientWorkout.name, clientWorkout.date, clientWorkout.day)">
                         <div class="workout-div">
                             <ion-label>{{ clientWorkout.date ? clientWorkout.date : clientWorkout.date }}</ion-label>
                             <span class="workout-day">{{ clientWorkout.day }}</span>
@@ -167,7 +167,7 @@ export default {
 
     },
     methods: {
-        goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate) {
+        goToClientWorkout(clientWorkoutId, clientWorkoutName, clientWorkoutDate, clientWorkoutDay) {
             // console.log("Did goToClientWorkout get hit?")
 
             // // ! Check if goToEditWorkoutScreen() has been hit. If so, don't execute this router push event.
@@ -183,6 +183,7 @@ export default {
                     workoutId: clientWorkoutId,
                     clientWorkoutName: clientWorkoutName,
                     clientWorkoutDate: clientWorkoutDate,
+                    clientWorkoutDay: clientWorkoutDay,
                     backButtonText: 'Workouts'
                 }
             })

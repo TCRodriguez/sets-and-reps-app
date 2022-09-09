@@ -16,6 +16,7 @@
         <ion-content :fullscreen="true">
             <ion-text>
                 <h1>{{clientWorkoutDate}}</h1>
+                <p>{{clientWorkoutDay}}</p>
             </ion-text>
             <ion-list ref="logsList">
                 <ion-item-sliding
@@ -157,6 +158,7 @@ export default {
         workoutId: {type: String, required: true},
         clientWorkoutName: {type: String, required: true},
         clientWorkoutDate: {type: String, required: true},
+        clientWorkoutDay: {type: String, required: true},
         backButtonText: {type: String, required: true}
     },
     components: { 
@@ -317,6 +319,13 @@ export default {
     h1 {
         font-family: 'ArchivoBlack-Regular';
         font-size: 2rem;
+    }
+
+    p {
+        font-family: 'ArchivoBlack-Regular';
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 5%;
     }
 
     .table-headers {
