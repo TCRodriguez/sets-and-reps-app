@@ -99,7 +99,11 @@ export default {
         createWorkout() {
             // console.log(this.clientWorkoutDate.substring(0, 10));
             // console.log(this.clientWorkoutDate);
-            let today = new Date().toJSON().substring(0, 10);
+            // let today = new Date().toJSON().substring(0, 10);
+            let today = new Date().toLocaleDateString("sv")
+            // let tempDate = new Date();
+            // console.log(tempDate.toLocaleDateString());
+            // console.log(today.getUTCDay());
             // let selectedDate = this.clientWorkoutDate === null ? today : this.clientWorkoutDate.substring(0, 10);
             const data = {
                 clientId: this.clientId,
