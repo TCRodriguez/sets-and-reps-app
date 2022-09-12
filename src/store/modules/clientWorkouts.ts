@@ -10,6 +10,7 @@ export default {
 
     actions: {
         updateWorkouts({commit, rootState}, clientId) {
+            console.log('updateWorkouts()')
             return new Promise ((resolve, reject) => {
                 fittyApiClient.get(`clients/${clientId}/workouts`, {
                     headers: {
@@ -25,7 +26,7 @@ export default {
                         el.day = weekday[dayTemp.getUTCDay()] 
                     });
 
-                    console.log(workoutsTemp)
+                    // console.log(workoutsTemp)
 
                     commit('UPDATE_WORKOUTS', workoutsTemp)
                     // this.clientWorkouts = response.data.data;
@@ -42,6 +43,7 @@ export default {
 
         },
         createClientWorkout({rootState, dispatch}, payload) {
+            console.log('createClientWorkout()')
             return new Promise((resolve, reject) => {
                 fittyApiClient.post(`clients/${payload.clientId}/workouts`, {
                     client_id: payload.clientId,
@@ -223,10 +225,24 @@ export default {
             })
 
             return sortedWorkoutsDesc;
+        },
+        getWorkoutById: (state) => (workoutId) => {
+            console.log('getWorkoutById was hit');
+            console.log(workoutId);
+            console.log(state.workouts)
+            // state.workouts.forEach(element => console.log(element.id))
+            const workout = state.workouts.find(workout => {
+                return workout.id === workoutId;
+            })
+            console.log(workout);
+            // return workout;
+            // return state.workouts.find(workout => workout.id === workoutId);
+            // return workout.day;
         }
     },
     mutations: {
         UPDATE_WORKOUTS(state, workouts) {
+            console.log('UPDATE_WORKOUTS()')
             state.workouts = workouts
             // console.log(state.workouts)
         },

@@ -109,17 +109,33 @@ export default {
                 clientId: this.clientId,
                 clientWorkoutDate: this.clientWorkoutDate === null ? today : this.clientWorkoutDate.substring(0, 10)
             }
+            // console.log(this.$store.getters)
+            console.log(data.clientWorkoutDate);
+            // console.log(this.$store.getters['clientWorkouts/getWorkoutById'](57));
 
             console.log(data)
             // const test = this.clientWorkoutDate === null ? "It's null." : new Date();
             // console.log(test)
             this.$store.dispatch('clientWorkouts/createClientWorkout', data)
-            .then(() => {
-                this.$router.replace({
-                    name: 'ClientWorkouts',
-                    params: {
-                        backButtonText: "Clients"
-                    }
+            .then(response => {
+                this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
+                .then(() => {
+                    console.log("after setTimeout()")
+                    const workouts = this.$store.getters['clientWorkouts/getWorkoutsDesc'];
+                    const workout = workouts.find(workout => {
+                        return workout.id === response.data.data.id
+                    });
+                    this.$router.replace({
+                        name: 'ClientWorkout',
+                        params: {
+                            clientId: this.clientId,
+                            clientName: this.clientName,
+                            workoutId: response.data.data.id,
+                            clientWorkoutDate: response.data.data.date,
+                            clientWorkoutDay: workout.day,
+                            backButtonText: 'Workouts'
+                        }
+                    })
                 })
             })
         }
