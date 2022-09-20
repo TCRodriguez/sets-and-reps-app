@@ -15,63 +15,68 @@
 
             <text class="button" @press="login()">Login</text>
         </KeyboardAvoidingView> -->
-        <ion-content>
-            <ion-grid >
-                <!-- <ion-row class="ion-justify-content-center" style="height: 100%"> -->
-                    <ion-row class="ion-align-items-center" style="padding-top: 25%;">
-                        <ion-col>
-                            <div class="ion-text-center ion-align-self-end">
-                                <h1 class="title">Sets</h1>
-                                <h1 class="title" style="margin-top: 0; margin-bottom: 0;">&</h1>
-                                <h1 class="title">Reps</h1>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="ion-justify-content-center">
-                        <ion-col>
-                            <div>
-                                <ion-toast
-                                    :is-open="isOpenRef"
-                                    :message="errorMessage"
-                                    :duration="2000"                   
-                                ></ion-toast>
-                            </div>
-                            <div class="container">
-                                <!-- <ion-item>
-                                    <ion-input placeholder="Email" v-model="email"></ion-input>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-input placeholder="Password" v-model="password"></ion-input>
-                                </ion-item> -->
-                                <Form @submit="login">
-                                    <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
-                                       <ion-input v-bind="field" type="email" placeholder="Email" clear-input></ion-input> 
-                                    </Field>
-                                    <ErrorMessage name="email"></ErrorMessage>
-                                    <Field v-model="password" name="password" v-slot="{ field }" rules="required">
-                                       <ion-input v-bind="field" type="password" placeholder="Password" clear-input></ion-input> 
-                                    </Field>
-                                    <ErrorMessage name="password"></ErrorMessage>
-                                    <ion-button type="Submit" expand="block">
+        <ion-page>
+            <ion-content>
+                <ion-grid>
+                    <!-- <ion-row class="ion-justify-content-center" style="height: 100%"> -->
+                        <ion-row class="ion-align-items-center" style="padding-top: 25%;">
+                            <ion-col>
+                                <div class="ion-text-center ion-align-self-end">
+                                    <h1 class="title">Sets</h1>
+                                    <h1 class="title" style="margin-top: 0; margin-bottom: 0;">&</h1>
+                                    <h1 class="title">Reps</h1>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-center">
+                            <ion-col>
+                                <div>
+                                    <ion-toast
+                                        :is-open="isOpenRef"
+                                        :message="errorMessage"
+                                        :duration="2000"                   
+                                    ></ion-toast>
+                                </div>
+                                <div class="container">
+                                    <!-- <ion-item>
+                                        <ion-input placeholder="Email" v-model="email"></ion-input>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-input placeholder="Password" v-model="password"></ion-input>
+                                    </ion-item> -->
+                                    <Form @submit="login">
+                                        <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
+                                        <ion-input v-bind="field" type="email" placeholder="Email" clear-input></ion-input> 
+                                        </Field>
+                                        <ErrorMessage name="email"></ErrorMessage>
+                                        <Field v-model="password" name="password" v-slot="{ field }" rules="required">
+                                        <ion-input v-bind="field" type="password" placeholder="Password" clear-input></ion-input> 
+                                        </Field>
+                                        <ErrorMessage name="password"></ErrorMessage>
+                                        <ion-button type="Submit" expand="block">
+                                            Login
+                                        </ion-button>
+                                    </Form>
+                                    <ion-button @click="goToCreateTrainerScreen()" id="sign-up-btn" fill="outline" expand="block">
+                                        Sign up
+                                    </ion-button>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <!-- <ion-row class="ion-justify-content-center">
+                            <ion-col size="3">
+                                <div>
+                                    <ion-button type="Submit">
                                         Login
                                     </ion-button>
-                                </Form>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                    <!-- <ion-row class="ion-justify-content-center">
-                        <ion-col size="3">
-                            <div>
-                                <ion-button type="Submit">
-                                    Login
-                                </ion-button>
-                            </div>
-                        </ion-col>
-                    </ion-row> -->
-                <!-- </ion-row> -->
-                
-            </ion-grid>
-        </ion-content>
+                                </div>
+                            </ion-col>
+                        </ion-row> -->
+                    <!-- </ion-row> -->
+                    
+                </ion-grid>
+            </ion-content>
+        </ion-page>
 </template>
 
 <script lang="ts">
@@ -84,6 +89,7 @@ import {
     IonInput,
     IonButton,
     IonContent,
+    IonPage,
 } from '@ionic/vue'
 
 import { mapState } from 'vuex'
@@ -98,6 +104,7 @@ export default {
         IonInput,
         IonButton,
         IonContent,
+        IonPage,
     },
     computed: {
         ...mapState('login', {
@@ -141,8 +148,13 @@ export default {
                 // console.log(this.errorMessage);
             })
         },
-        yo() {
-            alert('testing');
+        goToCreateTrainerScreen() {
+            this.$router.push({
+                name: 'CreateTrainer',
+                params: {
+                    backButtonText: 'Login'
+                }
+            })
         }
     }
 }
