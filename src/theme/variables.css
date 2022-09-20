@@ -88,6 +88,11 @@ ion-button {
   --color: white;
 }
 
+#sign-up-btn {
+  --background: black;
+  --border-color: var(--ion-color-purple);
+}
+
 ion-toast {
   --background: var(--ion-color-danger-shade);
   /* --color: #000; */
