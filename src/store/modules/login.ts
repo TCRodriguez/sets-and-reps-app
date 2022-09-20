@@ -29,6 +29,25 @@ export default {
                 })
             })
         },
+        createTrainer(context, data) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.post('trainers', {
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    user_name: data.user_name,
+                    email: data.email,
+                    password: data.password
+                })
+                .then(response => {
+                    console.log('Trainer created via front end.');
+                    resolve(response.data.data)
+                })
+                .catch(error => {
+                    console.log('Trainer creation failed.')
+                    reject(error);
+                })
+            })
+        }
     },
 
     mutations: {
