@@ -5,6 +5,7 @@ export default {
     state: {
         token: null,
         messages: null,
+        newTrainerCreated: false,
     },
 
     actions: {
@@ -40,6 +41,7 @@ export default {
                 })
                 .then(response => {
                     console.log('Trainer created via front end.');
+                    context.commit('UPDATE_NEW_TRAINER_STATUS', true);
                     resolve(response.data.data)
                 })
                 .catch(error => {
@@ -62,6 +64,9 @@ export default {
             // setTimeout(() => {
             //     state.messages = null
             // }, 4000);
+        },
+        UPDATE_NEW_TRAINER_STATUS(state, boolean) {
+            state.newTrainerCreated = boolean;
         }
     },
 }
