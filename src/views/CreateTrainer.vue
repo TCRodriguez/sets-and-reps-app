@@ -23,7 +23,7 @@
                     </Field>
                     <ErrorMessage name="last_name"></ErrorMessage>
 
-                    <Field v-model="user_name" name="user_name" v-slot="{ field }" rules="required">
+                    <Field v-model="user_name" name="user_name" v-slot="{ field }" rules="required|min:3|max:12">
                         <ion-input v-bind="field" placeholder="Username" type="text" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="user_name"></ErrorMessage> 
@@ -33,7 +33,7 @@
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
 
-                    <Field v-model="password" name="password" v-slot="{ field }" rules="required">
+                    <Field v-model="password" name="password" v-slot="{ field }" rules="required|min:8">
                         <ion-input v-bind="field" placeholder="Password" type="text" clear-input></ion-input>  
                     </Field>
                     <ErrorMessage name="password"></ErrorMessage>
@@ -61,7 +61,7 @@ import {
     // IonFabButton,
     IonButtons,
     IonBackButton,
-    // IonButton,
+    IonButton,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
@@ -88,21 +88,26 @@ export default {
         // IonFabButton,
         IonButtons,
         IonBackButton,
-        // IonButton,
+        IonButton,
     },
     data() {
         return {
-            first_name: null,
-            last_name: null,
-            user_name: null,
-            email: null,
-            password: null,
+            // first_name: null,
+            // last_name: null,
+            // user_name: null,
+            // email: null,
+            // password: null,
+            first_name: 'tee',
+            last_name: 'hee',
+            user_name: 'tee_hee',
+            email: 'teehee@teehee.com',
+            password: 'password123',
         }
     },
     mounted() {
         // Resets the "clicked" state of the edit button
         // this.editButtonClicked = false;
-        console.log(this.backButtonText)
+
 
         // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
     },
@@ -119,7 +124,7 @@ export default {
             this.$store.dispatch('login/createTrainer', trainerData)
             .then(() => {
                 this.$router.replace({
-                    name: 'Login'
+                    name: 'LoginScreen',
                 })
             })
         }
