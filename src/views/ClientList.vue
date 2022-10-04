@@ -149,6 +149,7 @@ export default {
     mounted() {
         this.$store.dispatch('clients/updateClientList')
         .then(() => {
+            console.log(this.$store.getters['login/getTrainer']);
             this.$store.dispatch('trainerExercises/updateExercises')
         })
     },

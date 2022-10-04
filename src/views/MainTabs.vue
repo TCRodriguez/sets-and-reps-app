@@ -15,7 +15,7 @@
             <ion-label>Exercises</ion-label>
             </ion-tab-button>
             
-            <ion-tab-button tab="tab3" href="/tabs/tab3">
+            <ion-tab-button tab="tab3" href="/tabs/settings">
             <ion-icon :icon="cogOutline" />
             <ion-label>Setings</ion-label>
             </ion-tab-button>

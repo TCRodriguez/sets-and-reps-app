@@ -44,6 +44,13 @@
                                     <ion-item>
                                         <ion-input placeholder="Password" v-model="password"></ion-input>
                                     </ion-item> -->
+                                    <ion-toast
+                                        :is-open="displayAccountCreationSuccess"
+                                        message="You've successfully created your account!"
+                                        :duration="2000"
+                                        position="top"
+                                        color="success"
+                                    ></ion-toast>
                                     <Form @submit="login">
                                         <Field v-model="email" name="email" v-slot="{ field }" rules="required|email">
                                         <ion-input v-bind="field" type="email" placeholder="Email" clear-input></ion-input> 
@@ -73,7 +80,6 @@
                             </ion-col>
                         </ion-row> -->
                     <!-- </ion-row> -->
-                    
                 </ion-grid>
             </ion-content>
         </ion-page>
@@ -95,6 +101,9 @@ import {
 import { mapState } from 'vuex'
 
 export default {
+    props: {
+        navigation: {type: Object}
+    },
     components: {
         IonGrid,
         IonRow,
@@ -108,7 +117,8 @@ export default {
     },
     computed: {
         ...mapState('login', {
-            errorMessage: state => state.messages
+            errorMessage: state => state.messages,
+            displayAccountCreationSuccess: state => state.newTrainerCreated 
         })
     },
     data() {
@@ -117,13 +127,18 @@ export default {
             password: 'password123',
             trainerId: null,
             isOpenRef: false,
+            // displayAccountCreationSuccess: false,
         }
     },
-    props: {
-        navigation: {
-            type: Object
-        }
-    },
+    // mounted() {
+
+    // },
+    // beforeRouteEnter(to, from, next) {
+    //     // next();
+    //     console.log("These are inside the LoginScreen " + to.params)
+    //     console.log("These are inside the LoginScreen " + from.params)
+    //     console.log("These are inside the LoginScreen " + next.params)
+    // },
     methods: {
         login() {
             const payload = {
@@ -132,7 +147,7 @@ export default {
             }
             this.$store.dispatch('login/login', payload)
             .then(() => {
-                // const ionRouter = useIonRouter();
+                this.$store.commit('login/UPDATE_NEW_TRAINER_STATUS', false)
                 this.$router.push('/tabs/', 'forward');
             })
             .catch(error => {
@@ -149,13 +164,17 @@ export default {
             })
         },
         goToCreateTrainerScreen() {
+            this.$store.commit('login/UPDATE_NEW_TRAINER_STATUS', false)
             this.$router.push({
                 name: 'CreateTrainer',
                 params: {
                     backButtonText: 'Login'
                 }
             })
-        }
+        },
+        // updateNewTrainerSuccessMessage() {
+        //     this
+        // }
     }
 }
 </script>

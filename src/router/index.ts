@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory, createMemoryHistory, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 // import TabsPage from '../views/TabsPage.vue';
-import LoginScreen from '../views/LoginScreen.vue'
-import ClientList from '../views/ClientList.vue';
+import LoginScreen from '../views/LoginScreen.vue';
+import CreateTrainer from '../views/CreateTrainer.vue';
+import EditTrainer from '../views/EditTrainer.vue';
 import MainTabs from '../views/MainTabs.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -12,11 +13,28 @@ const routes: Array<RouteRecordRaw> = [
   // },
   {
     path: '/',
+    // component: LoginScreen,
+    name: 'LoginScreen',
     component: LoginScreen,
+    props: true,
+    // beforeEnter: (to, from) => {
+    //   console.log("before enter - to")
+    //   console.log(to.params)
+    //   console.log("before enter - from") 
+    //   console.log(from.params)
+    // }
   },
   {
-    path: '/clients',
-    component: ClientList,
+    path: '/trainers',
+    name: 'CreateTrainer',
+    component: CreateTrainer,
+    props: true,
+  },
+  {
+    path: '/trainers/:trainerId',
+    name: 'EditTrainer',
+    component: EditTrainer,
+    props: true,
   },
   {
     path: '/tabs/',
@@ -109,8 +127,9 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('@/views/Settings.vue')
       }
     ]
   }

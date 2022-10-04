@@ -6,8 +6,13 @@ export default {
         token: null,
         messages: null,
         newTrainerCreated: false,
+        loggedInTrainer: null,
     },
-
+    getters: {
+        getTrainer(state) {
+            return state.loggedInTrainer;
+        }
+    },
     actions: {
         login(context, payload) {
             return new Promise ((resolve, reject) => {
@@ -16,12 +21,14 @@ export default {
                     password: payload.password
                 })
                 .then(response => {
-                    context.commit('UPDATE_TOKEN', `Bearer ${response.data.data.token}`)
+                    context.commit('UPDATE_TOKEN', `Bearer ${response.data.token.token}`)
                     console.log('success')
-                    resolve(response.data.data.token)
+                    console.log(response.data)
+                    context.commit('UPDATE_LOGGED_IN_TRAINER', response.data.trainer);
+                    resolve(response.data.token.token)
                 })
                 .catch(error => {
-                    // console.log(error.response)
+                    console.log(error.response)
 
                     const errorMessage = error.response.data.errors.email[0]
                     // console.log(error.response.data.errors.email[0])
@@ -33,6 +40,26 @@ export default {
         createTrainer(context, data) {
             return new Promise((resolve, reject) => {
                 fittyApiClient.post('trainers', {
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    user_name: data.user_name,
+                    email: data.email,
+                    password: data.password
+                })
+                .then(response => {
+                    console.log('Trainer created via front end.');
+                    context.commit('UPDATE_NEW_TRAINER_STATUS', true);
+                    resolve(response.data.data)
+                })
+                .catch(error => {
+                    console.log('Trainer creation failed.')
+                    reject(error);
+                })
+            })
+        },
+        editTrainer(context, data) {
+            return new Promise((resolve, reject) => {
+                fittyApiClient.put(`trainers/${data.trainerId}/`, {
                     first_name: data.first_name,
                     last_name: data.last_name,
                     user_name: data.user_name,
@@ -67,6 +94,9 @@ export default {
         },
         UPDATE_NEW_TRAINER_STATUS(state, boolean) {
             state.newTrainerCreated = boolean;
+        },
+        UPDATE_LOGGED_IN_TRAINER(state, loggedInTrainer) {
+            state.loggedInTrainer = loggedInTrainer;
         }
     },
 }
