@@ -50,10 +50,21 @@ configure({
     en: {
       messages: {
         required: 'This field is required.',
-        regex: 'Must be a valid 10-digit phone number.'
+        regex: 'Must be a valid 10-digit phone number.',
       }
     }
   })
+})
+
+localize('en', {
+  fields: {
+    user_name: {
+      min: 'Your username must be at least 3 characters long.'
+    },
+    password: {
+      min: 'Your password must be at least 8 characters long.'
+    }
+  }
 })
 
 const app = createApp(App)
