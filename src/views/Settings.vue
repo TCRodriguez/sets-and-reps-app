@@ -8,6 +8,7 @@
         <ion-content :fullscreen="true">
             <ion-list ref="setingsList">
               <ion-item @click="goToEditTrainerScreen()">Edit Account</ion-item>
+              <ion-item @click="confirmLogout()">Logout</ion-item>
             </ion-list>
         </ion-content>
     </ion-page>
@@ -33,16 +34,14 @@ import {
     IonFabButton,
     IonPopover,
     IonText,
+    IonAlert,
+    useIonRouter,
+    alertController,
 } from '@ionic/vue';
 
 import { mapState } from 'vuex';
 
-import AddClientIcon from '@/components/AddClientIcon.vue';
-
 import { ref } from 'vue';
-
-// import OptionsButton from '@/components/OptionsButton.vue'
-
 
 export default {
     // props: ['clientName'],
@@ -57,15 +56,9 @@ export default {
         // IonCol,
         IonList,
         IonItem,
-        IonItemSliding,
-        IonItemOptions,
-        IonItemOption,
-        IonLabel,
-        AddClientIcon,
-        IonFab,
-        IonFabButton,
         IonPopover,
         IonText,
+        IonAlert,
         // OptionsButton
     },
     computed: {
@@ -73,10 +66,38 @@ export default {
             clients: state => state.list
         })
     },
-    data() {
-        return {
+    setup() {
+        const ionRouter = useIonRouter();
+
+        const handlerMessage = ref('');
+        const confirmLogout = async () => {
+            const alert = await alertController.create({
+                header: 'Confirm',
+                message: 'Are you sure you want to logout?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                            handlerMessage.value = 'Logout canceled';
+                        },
+                    },
+                    {
+                        text: 'Yes',
+                        role: 'confirm',
+                        handler: () => {
+                            handlerMessage.value = 'Logout confirmed';
+                            ionRouter.navigate('/', 'back', 'push');
+                        },
+                    },
+                ],
+            });
+
+            await alert.present();
 
         }
+
+        return { handlerMessage, confirmLogout }
     },
     // mounted() {
 
@@ -91,7 +112,8 @@ export default {
             trainerId: trainer.id
           }
         })
-      }
+      },
+
     }
 }
 </script>

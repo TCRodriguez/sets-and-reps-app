@@ -124,7 +124,7 @@ export default {
     data() {
         return {
             email: 'tr@example.com',
-            password: 'password123',
+            password: 'password1234',
             trainerId: null,
             isOpenRef: false,
             // displayAccountCreationSuccess: false,
