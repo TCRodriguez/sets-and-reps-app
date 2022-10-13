@@ -64,11 +64,10 @@ export default {
                     last_name: data.last_name,
                     user_name: data.user_name,
                     email: data.email,
-                    password: data.password
+                    // password: data.password
                 })
                 .then(response => {
                     console.log('Trainer created via front end.');
-                    context.commit('UPDATE_NEW_TRAINER_STATUS', true);
                     resolve(response.data.data)
                 })
                 .catch(error => {
@@ -76,7 +75,17 @@ export default {
                     reject(error);
                 })
             })
+        },
+        logout() {
+            return new Promise ((resolve, reject) => {
+                fittyApiClient.post('logout')
+                .then(response => {
+                    console.log('Trainer has logged out.')
+                    console.log(response.data)
+                })
+            })
         }
+        
     },
 
     mutations: {

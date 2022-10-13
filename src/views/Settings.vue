@@ -92,9 +92,7 @@ export default {
                     },
                 ],
             });
-
             await alert.present();
-
         }
 
         return { handlerMessage, confirmLogout }

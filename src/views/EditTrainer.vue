@@ -33,10 +33,10 @@
                     </Field>
                     <ErrorMessage name="email"></ErrorMessage>
 
-                    <Field v-model="password" name="password" v-slot="{ field }" rules="required|min:8">
+                    <!-- <Field v-model="password" name="password" v-slot="{ field }" rules="required|min:8">
                         <ion-input v-bind="field" placeholder="Password" type="text" clear-input></ion-input>  
                     </Field>
-                    <ErrorMessage name="password"></ErrorMessage>
+                    <ErrorMessage name="password"></ErrorMessage> -->
 
                     <ion-button type="submit" expand="block">Submit</ion-button>
                 </Form>
@@ -98,11 +98,11 @@ export default {
             // email: null,
             // password: null,
             trainerId: null,
-            first_name: 'tee',
-            last_name: 'hee',
-            user_name: 'tee_hee',
-            email: 'teehee@teehee.com',
-            password: 'password123',
+            first_name: null,
+            last_name: null,
+            user_name: null,
+            email: null,
+            // password: null,
         }
     },
     mounted() {
@@ -114,7 +114,7 @@ export default {
         this.last_name = trainer.last_name;
         this.user_name = trainer.user_name;
         this.email = trainer.email;
-        this.password = trainer.password;
+        // this.password = trainer.password;
 
 
         // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
@@ -127,7 +127,7 @@ export default {
                 last_name: this.last_name,
                 user_name: this.user_name,
                 email: this.email,
-                password: this.password,
+                // password: this.password,
             }
 
             this.$store.dispatch('login/editTrainer', trainerData)
