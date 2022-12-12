@@ -38,7 +38,7 @@
                     <Field name="exerciseId" v-slot="{ field }" rules="required">
                         <ion-searchbar v-model="exerciseQuery" placeholder="Search Exercises" ref="searchbar" @ionFocus="handleSearchbarFocus()" @input="handleSearchbarChange($event.target.value)"></ion-searchbar>
                         <ion-list ref="exerciseList">
-                            <ion-item v-for="exercise in exercises" @click="setExercise(exercise.id, exercise.exercise_name)">{{ exercise.exercise_name}}</ion-item>
+                            <ion-item v-for="exercise in exercises" :key="exercise.id" @click="setExercise(exercise.id, exercise.exercise_name)">{{ exercise.exercise_name}}</ion-item>
                         </ion-list>
                         <ion-input id="exercise-name-field" v-bind="field" type="text" v-model="exerciseName" readonly></ion-input>
                     </Field>

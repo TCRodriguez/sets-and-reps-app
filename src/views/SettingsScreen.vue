@@ -14,7 +14,7 @@
     </ion-page>
 </template>
 
-<script>
+<script lang="ts">
 import {
     IonPage,
     IonHeader,
@@ -26,20 +26,20 @@ import {
     // IonCol,
     IonList,
     IonItem,
-    IonItemSliding,
-    IonItemOptions,
-    IonItemOption,
-    IonLabel,
-    IonFab,
-    IonFabButton,
-    IonPopover,
-    IonText,
-    IonAlert,
+    // IonItemSliding,
+    // IonItemOptions,
+    // IonItemOption,
+    // IonLabel,
+    // IonFab,
+    // IonFabButton,
+    // IonPopover,
+    // IonText,
+    // IonAlert,
     useIonRouter,
     alertController,
 } from '@ionic/vue';
 
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 
 import { ref } from 'vue';
 
@@ -56,16 +56,16 @@ export default {
         // IonCol,
         IonList,
         IonItem,
-        IonPopover,
-        IonText,
-        IonAlert,
+        // IonPopover,
+        // IonText,
+        // IonAlert,
         // OptionsButton
     },
-    computed: {
-        ...mapState('clients', {
-            clients: state => state.list
-        })
-    },
+    // computed: {
+    //     ...mapState('clients', {
+    //         clients: state => state.list
+    //     })
+    // },
     setup() {
         const ionRouter = useIonRouter();
 

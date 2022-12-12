@@ -128,8 +128,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'settings',
-        name: 'Settings',
-        component: () => import('@/views/Settings.vue')
+        name: 'SettingsScreen',
+        component: () => import('@/views/SettingsScreen.vue')
       }
     ]
   }

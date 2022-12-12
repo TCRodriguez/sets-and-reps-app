@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'sets-and-reps-app',
+  appId: 'com.setsandrepsapp',
+  appName: 'Sets & Reps',
   webDir: 'dist',
   bundledWebRuntime: false
 };

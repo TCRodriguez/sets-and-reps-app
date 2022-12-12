@@ -104,13 +104,13 @@ export default {
             password: 'password123',
         }
     },
-    mounted() {
-        // Resets the "clicked" state of the edit button
-        // this.editButtonClicked = false;
+    // created() {
+    //     // Resets the "clicked" state of the edit button
+    //     // this.editButtonClicked = false;
+    //     console.log("boo")
 
-
-        // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
-    },
+    //     // this.$store.dispatch('clientWorkouts/updateWorkouts', this.clientId)
+    // },
     methods: {
         createTrainer() {
             const trainerData = {

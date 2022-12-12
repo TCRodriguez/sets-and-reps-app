@@ -7,19 +7,45 @@ import trainerExercises from '../store/modules/trainerExercises';
 // import Vuex from 'vuex';
 // Vue.use(Vuex);
 
-
+import { LoginState } from './modules/login';
 import { createStore } from "vuex";
+import Vuex from 'vuex';
 
-const store = createStore({
+
+
+export interface State {
+    login: LoginState
+}
+
+
+export const store = createStore<State>({
     modules: {
         login,
         clients,
         clientWorkouts,
         trainerExercises,
     },
-    state: {
-        message: "Can you see me?",
-    },
+//     // state: {
+//     //     message: "Can you see me?",
+//     // },
 });
 
-export default store;
+// export default new Vuex.Store<State>({
+//     modules: {
+//         login,
+//         clients,
+//         clientWorkouts,
+//         trainerExercises
+//     }
+// })
+
+// export const store = new Vuex.Store({
+//     modules: {
+//         login,
+//         clients,
+//         clientWorkouts,
+//         trainerExercises
+//     }
+// })
+
+// export default store;

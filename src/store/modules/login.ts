@@ -1,7 +1,21 @@
 import fittyApiClient from '../../axios-http'
 
+export interface LoginState {
+    token: string,
+    messages: string,
+    newTrainerCreated: boolean,
+    loggedInTrainer: object
+}
+
+
 export default {
     namespaced: true,
+    // state: (): LoginState => ({
+    //     token: null,
+    //     messages: null,
+    //     newTrainerCreated: false,
+    //     loggedInTrainer: null,
+    // }),
     state: {
         token: null,
         messages: null,
@@ -94,15 +108,16 @@ export default {
         },
         UPDATE_MESSAGES(state, messages) {
             state.messages = messages
-            console.log(state.messages)
+            console.log(state.messages + "test")
             // ? Does something like a setTimeout() function go here? 
             // ? Since the computed property will be changed?
             // setTimeout(() => {
             //     state.messages = null
             // }, 4000);
         },
-        UPDATE_NEW_TRAINER_STATUS(state, boolean) {
-            state.newTrainerCreated = boolean;
+        UPDATE_NEW_TRAINER_STATUS(state, showMessageBoolean) {
+            console.log(showMessageBoolean)
+            state.newTrainerCreated = showMessageBoolean;
         },
         UPDATE_LOGGED_IN_TRAINER(state, loggedInTrainer) {
             state.loggedInTrainer = loggedInTrainer;

@@ -97,8 +97,14 @@ import {
     IonContent,
     IonPage,
 } from '@ionic/vue'
+// import { storefront } from 'ionicons/icons';
 
-import { mapState } from 'vuex'
+import { computed, ref } from 'vue';
+
+import { useStore } from 'vuex';
+
+// import { useStore } from 'vuex';
+
 
 export default {
     props: {
@@ -115,29 +121,46 @@ export default {
         IonContent,
         IonPage,
     },
-    computed: {
-        ...mapState('login', {
-            errorMessage: state => state.messages,
-            displayAccountCreationSuccess: state => state.newTrainerCreated 
-        })
-    },
+    // computed: {
+    //     ...mapState('login', {
+    //         errorMessage: state => state.messages,
+    //         displayAccountCreationSuccess: state => state.newTrainerCreated,
+    //     })
+    // },
     data() {
         return {
             email: 'tr@example.com',
             password: 'password1234',
             trainerId: null,
-            isOpenRef: false,
+            // isOpenRef: false,
             // displayAccountCreationSuccess: false,
+            // errorMessage: null,
         }
     },
-    // mounted() {
+    setup() {
+        const store = useStore();
 
-    // },
+        const errorMessage = computed(() => store.state.login.messages)
+        // const displayAccountCreationSuccess = store.state.newTrainerCreated === undefined ? false : computed(() => store.state.newTrainerCreated);
+        const displayAccountCreationSuccess = computed(() => store.state.login.newTrainerCreated);
+        const isOpenRef = ref(false);
+        console.log("testst")
+        console.log(displayAccountCreationSuccess)
+        return {
+            errorMessage,
+            displayAccountCreationSuccess,
+            isOpenRef
+        }
+    },
+    created() {
+        console.log(this.displayAccountCreationSuccess);
+        console.log("test")
+    },
     // beforeRouteEnter(to, from, next) {
-    //     // next();
+    //     next();
     //     console.log("These are inside the LoginScreen " + to.params)
     //     console.log("These are inside the LoginScreen " + from.params)
-    //     console.log("These are inside the LoginScreen " + next.params)
+    //     // console.log("These are inside the LoginScreen " + next.params)
     // },
     methods: {
         login() {
@@ -152,15 +175,15 @@ export default {
             })
             .catch(error => {
                 console.log(error)
-                if(error.response.data !== undefined){
-                    this.errorMessage = error.response.data.errors.email[0];
-                }
+                // if(error.response.data !== undefined){
+                //     this.errorMessage = error.response.data.errors.email[0];
+                // }
                 this.isOpenRef = true;
                 setTimeout(() => {
                     this.isOpenRef = false;
                 }, 2000);
                 // console.log(error.response.data.errors.email[0])
-                // console.log(this.errorMessage);
+                console.log(this.errorMessage);
             })
         },
         goToCreateTrainerScreen() {
